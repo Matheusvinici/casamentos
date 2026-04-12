@@ -1,0 +1,40 @@
+id,nome,sigla
+1,Língua Portuguesa,LP
+2,Matemática,MT
+3,Ciências,CI
+4,História,HI
+5,Geografia,GE
+6,Educação Física,EF
+8,Ensino Religioso,ER
+7,Arte,AR
+9,Língua Inglesa,IN
+10,Empreendedorismo,EM
+12,"Eu, o outro e nós",EON
+13,Estudos da Sociedade e Natureza,ESN
+14,História da Cultura Afro-Brasileira e Indígena,HCAI
+15,Disciplinas Eletivas,DE
+16,Práticas Experimentais,PE
+17,Estudo Orientado,EO
+18,Protagonismo Juvenil,PJ
+19,Projeto de Vida,PV
+20,Iniciação Cientifica,IC
+21,Educação Ambiental,EAB
+22,Cultura Digital e Comunicação,CDC
+23,Música,MU
+24,Iniciação Artística,IAT
+25,Filosofia,FL
+26,Recreação,RE
+27,Dança,DA
+28,Linguagem e Códigos,LC
+29,Técnicas Agrícolas,TA
+30,Cooperativismo,COOP
+31,Sociedade,SOC
+32,Raciocínio Lógico,RACLO
+11,Meditação/Contação de História,MCH
+33,"Corpo, gestos e movimentos",CGM
+34,"Traços, sons, cores e formas",TSCF
+35,"Escuta, fala, pensamento e imaginação",EFPI
+36,"Espaço, tempo, quantidades, relações e transformação",ETQRT
+37,Esporte e Recreação,ER
+38,Teatro,TE
+39,Robótica,ROB
