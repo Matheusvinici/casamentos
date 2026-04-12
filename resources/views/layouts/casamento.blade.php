@@ -199,7 +199,7 @@
     <!-- Footer -->
     <footer class="casamento-footer">
         <div class="container">
-            <div class="footer-names">M & N</div>
+            <div class="footer-names">M & M</div>
             <div class="footer-date">06 de Junho de 2026</div>
             <p class="mt-2 mb-0" style="font-size: 0.75rem;">Feito com <i class="fas fa-heart" style="color: var(--rose);"></i> para o nosso grande dia</p>
         </div>
