@@ -41,6 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle' => ThrottleRequests::class,
             'verified' => EnsureEmailIsVerified::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, // Corrigido
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -172,9 +172,23 @@
                 <a href="/" class="nav-brand">Mary & Matheus</a>
                 <div class="d-flex align-items-center gap-3">
                     @auth
-                        <span class="user-greeting d-none d-md-inline">
+                        <span class="user-greeting d-none d-md-inline" style="margin-right: 15px;">
                             Olá, <strong>{{ Auth::user()->name }}</strong>
                         </span>
+                        
+                        @hasrole('Admin')
+                        <a href="{{ route('admin.casamento.dashboard') }}" class="nav-link-custom me-2" style="font-size: 0.8rem; color: #dc3545;">
+                            <i class="fas fa-crown me-1"></i> Painel Admin
+                        </a>
+                        @endhasrole
+                        
+                        <a href="{{ route('confirmacao.index') }}" class="nav-link-custom me-2" style="font-size: 0.8rem; font-weight: bold; color: var(--rose-dark);">
+                            <i class="fas fa-calendar-check me-1"></i> Confirmar Presença
+                        </a>
+                        
+                        <a href="{{ route('presentes.meus') }}" class="nav-link-custom me-2" style="font-size: 0.8rem;">
+                            <i class="fas fa-gift me-1"></i> Meus Presentes
+                        </a>
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn-logout">
@@ -182,6 +196,9 @@
                             </button>
                         </form>
                     @else
+                        <a href="{{ route('confirmacao.index') }}" class="nav-link-custom me-3" style="font-weight: bold; color: var(--rose-dark);">
+                            <i class="fas fa-calendar-check me-1"></i> Confirmar Presença
+                        </a>
                         <a href="{{ route('login') }}" class="nav-link-custom">
                             <i class="fas fa-user me-1"></i> Entrar
                         </a>

@@ -12,17 +12,12 @@
         justify-content: center;
         text-align: center;
         position: relative;
-        background: linear-gradient(160deg, #faf8f5 0%, #f5f0e8 30%, #e8d5b7 100%);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)), url('{{ asset("images/foto1.jpeg") }}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         overflow: hidden;
     }
-
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
         background: radial-gradient(ellipse at 30% 50%, rgba(212,168,83,0.06) 0%, transparent 50%),
                     radial-gradient(ellipse at 70% 50%, rgba(201,168,124,0.08) 0%, transparent 50%);
         animation: floatBg 20s ease-in-out infinite;
@@ -41,10 +36,10 @@
 
     .hero-label {
         font-family: 'Lato', sans-serif;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         letter-spacing: 6px;
         text-transform: uppercase;
-        color: var(--rose);
+        color: var(--cream);
         margin-bottom: 1.5rem;
         opacity: 0;
         animation: fadeInUp 1s ease 0.2s forwards;
@@ -52,9 +47,10 @@
 
     .hero-names {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(2.5rem, 8vw, 5rem);
+        font-size: clamp(2.5rem, 8vw, 5.5rem);
         font-weight: 400;
-        color: var(--text-dark);
+        color: #ffffff;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         line-height: 1.1;
         margin-bottom: 1rem;
         opacity: 0;
@@ -63,7 +59,7 @@
 
     .hero-names .amp {
         font-style: italic;
-        color: var(--rose);
+        color: var(--rose-light);
         font-size: 0.7em;
         display: inline-block;
         margin: 0 0.3em;
@@ -71,51 +67,52 @@
 
     .hero-date {
         font-family: 'Lato', sans-serif;
-        font-size: 1rem;
-        letter-spacing: 3px;
-        color: var(--text-light);
-        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        letter-spacing: 4px;
+        color: var(--cream);
+        margin-bottom: 3rem;
         opacity: 0;
         animation: fadeInUp 1s ease 0.8s forwards;
     }
 
     .hero-divider {
-        width: 60px;
-        height: 1px;
-        background: var(--rose);
-        margin: 0 auto 2rem;
-        opacity: 0;
-        animation: fadeInUp 1s ease 0.9s forwards;
+        display: none;
     }
 
     /* Countdown */
     .countdown {
         display: flex;
         justify-content: center;
-        gap: 2rem;
-        margin-bottom: 2.5rem;
+        gap: 2.5rem;
+        margin-bottom: 3.5rem;
         opacity: 0;
         animation: fadeInUp 1s ease 1s forwards;
     }
 
     .countdown-item {
         text-align: center;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.2);
+        min-width: 90px;
     }
 
     .countdown-number {
         font-family: 'Playfair Display', serif;
         font-size: 2.5rem;
         font-weight: 600;
-        color: var(--text-dark);
+        color: #ffffff;
         line-height: 1;
     }
 
     .countdown-label {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
         letter-spacing: 2px;
         text-transform: uppercase;
-        color: var(--text-light);
-        margin-top: 0.3rem;
+        color: var(--cream);
+        margin-top: 0.5rem;
     }
 
     .hero-cta {
@@ -124,25 +121,26 @@
     }
 
     .btn-elegant {
-        background: transparent;
-        border: 1.5px solid var(--rose);
-        color: var(--rose-dark);
-        font-size: 0.8rem;
+        background: var(--rose);
+        border: none;
+        color: var(--white);
+        font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 2px;
         text-transform: uppercase;
-        padding: 0.8rem 2.5rem;
+        padding: 1rem 3rem;
         border-radius: 30px;
         text-decoration: none;
         transition: all 0.4s ease;
         display: inline-block;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     .btn-elegant:hover {
-        background: var(--rose);
+        background: var(--rose-dark);
         color: var(--white);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(201,168,124,0.3);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.3);
     }
 
     .scroll-indicator {
@@ -463,39 +461,77 @@
         transform: translateY(0);
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* ===== ROMANTIC GALLERY ===== */
+    .romantic-gallery {
+        position: relative;
+        height: 650px;
+        margin-top: 5rem;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .gallery-img {
+        position: absolute;
+        border-radius: 12px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        border: 8px solid var(--white);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        object-fit: cover;
+        cursor: pointer;
+    }
+    .gallery-img:hover {
+        z-index: 10 !important;
+        transform: scale(1.04) translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+    .img-1 { width: 45%; height: 380px; top: 0; left: 0; z-index: 2; }
+    .img-2 { width: 42%; height: 320px; top: 60px; right: 0; z-index: 1; }
+    .img-3 { width: 38%; height: 280px; bottom: 0; left: 12%; z-index: 3; }
+    .img-4 { width: 48%; height: 340px; bottom: 40px; right: 8%; z-index: 4; }
+
+    @media (max-width: 991px) {
+        .romantic-gallery { height: 500px; }
+        .img-1 { height: 300px; }
+        .img-2 { height: 250px; top: 40px; }
+        .img-3 { height: 220px; bottom: 20px; }
+        .img-4 { height: 280px; bottom: 0; }
+    }
+
     @media (max-width: 768px) {
-        .countdown {
-            gap: 1rem;
+        .countdown { gap: 1rem; margin-bottom: 2.5rem; }
+        .countdown-item { padding: 1rem 0.5rem; min-width: 75px; }
+        .countdown-number { font-size: 1.8rem; }
+        .event-card { margin-bottom: 1rem; }
+        
+        /* Mobile Linear Gallery */
+        .romantic-gallery {
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding: 0 1rem;
         }
-        .countdown-number {
-            font-size: 1.8rem;
-        }
-        .event-card {
-            margin-bottom: 1rem;
-        }
-        .gift-image {
-            height: 160px;
+        .gallery-img {
+            position: relative;
+            width: 100% !important;
+            height: 350px !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            border-width: 5px;
         }
     }
 
     @media (max-width: 576px) {
-        .hero {
-            min-height: 90vh;
-        }
-        .countdown {
-            gap: 0.8rem;
-        }
-        .countdown-number {
-            font-size: 1.5rem;
-        }
-        .filter-tabs {
-            gap: 0.3rem;
-        }
-        .filter-tab {
-            padding: 0.4rem 1rem;
-            font-size: 0.7rem;
-        }
+        .hero { min-height: 90vh; }
+        .hero-names { font-size: 2.8rem; }
+        .countdown-item { padding: 0.8rem 0.3rem; min-width: 65px; border-radius: 8px; }
+        .countdown-number { font-size: 1.5rem; }
+        .countdown-label { font-size: 0.6rem; letter-spacing: 1px; }
+        .filter-tabs { gap: 0.3rem; }
+        .filter-tab { padding: 0.4rem 1rem; font-size: 0.7rem; }
     }
 </style>
 @endpush
@@ -590,6 +626,15 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Galeria do Casal Mais Criativa -->
+            <div class="romantic-gallery reveal">
+                <img src="{{ asset('images/foto1.jpeg') }}" class="gallery-img img-1" alt="Momento Inesquecível 1">
+                <img src="{{ asset('images/foto2.jpeg') }}" class="gallery-img img-2" alt="Nossa História 2">
+                <img src="{{ asset('images/foto3.jpeg') }}" class="gallery-img img-3" alt="Sorrisos 3">
+                <img src="{{ asset('images/foto4.jpeg') }}" class="gallery-img img-4" alt="Romance 4">
+            </div>
+            
         </div>
     </section>
 
@@ -616,145 +661,32 @@
 
             <!-- Grid de Presentes -->
             <div class="row g-4" id="giftsGrid">
-
-                {{-- ===== CURITIBA ===== --}}
-                <div class="col-lg-4 col-md-6 gift-item" data-city="curitiba">
-                    <div class="gift-card" onclick="selectGift(1)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Curitiba</span>
-                            <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600" class="gift-image" alt="Jardim Botânico">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Jardim Botânico</h4>
-                            <p class="gift-description">Visita ao icônico Jardim Botânico de Curitiba, com sua estufa de vidro Art Nouveau e jardins impecáveis.</p>
-                            <div class="gift-price">R$ 150,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 gift-item" data-city="curitiba">
-                    <div class="gift-card" onclick="selectGift(2)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Curitiba</span>
-                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" class="gift-image" alt="Tour Gastronômico">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Tour Gastronômico</h4>
-                            <p class="gift-description">Roteiro pelos melhores restaurantes e cafés da cidade, degustando pratos típicos paranaenses.</p>
-                            <div class="gift-price">R$ 200,00</div>
-                            <span class="btn-gift">Presentear</span>
+                @foreach($presentes as $presente)
+                    @php
+                        $citySlug = '';
+                        if(str_contains($presente['cidade'], 'Curitiba')) $citySlug = 'curitiba';
+                        elseif(str_contains($presente['cidade'], 'Camboriú')) $citySlug = 'balneario';
+                        elseif(str_contains($presente['cidade'], 'Florianópolis')) $citySlug = 'florianopolis';
+                        $isSold = in_array($presente['id'], $comprados);
+                    @endphp
+                    <div class="col-lg-4 col-md-6 gift-item" data-city="{{ $citySlug }}">
+                        <div class="gift-card {{ $isSold ? 'sold' : '' }}" onclick="selectGift({{ $presente['id'] }})">
+                            <div class="gift-image-wrapper">
+                                <span class="gift-city-badge">{{ $presente['cidade'] }}</span>
+                                <img src="{{ $presente['imagem'] }}" class="gift-image" alt="{{ $presente['nome'] }}" onerror="this.src='https://images.unsplash.com/photo-1549468057-5ce754b4f175?w=600'">
+                                <div class="gift-overlay">
+                                    <span>Presenteado</span>
+                                </div>
+                            </div>
+                            <div class="gift-body">
+                                <h4 class="gift-name">{{ $presente['nome'] }}</h4>
+                                <p class="gift-description">{{ $presente['descricao'] }}</p>
+                                <div class="gift-price">R$ {{ number_format($presente['preco'], 2, ',', '.') }}</div>
+                                <span class="btn-gift">{{ $isSold ? 'Já Escolhido' : 'Presentear' }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 gift-item" data-city="curitiba">
-                    <div class="gift-card" onclick="selectGift(3)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Curitiba</span>
-                            <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600" class="gift-image" alt="Trem Serra do Mar">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Passeio de Trem – Serra do Mar</h4>
-                            <p class="gift-description">Viagem de trem pela Serra do Mar, com vistas deslumbrantes da Mata Atlântica e pontes históricas.</p>
-                            <div class="gift-price">R$ 350,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- ===== BALNEÁRIO CAMBORIÚ ===== --}}
-                <div class="col-lg-4 col-md-6 gift-item" data-city="balneario">
-                    <div class="gift-card" onclick="selectGift(4)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Balneário Camboriú</span>
-                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" class="gift-image" alt="Teleférico">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Teleférico + Cristo Luz</h4>
-                            <p class="gift-description">Passeio de teleférico com vista panorâmica e visita ao mirante do Cristo Luz ao entardecer.</p>
-                            <div class="gift-price">R$ 250,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 gift-item" data-city="balneario">
-                    <div class="gift-card" onclick="selectGift(5)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Balneário Camboriú</span>
-                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600" class="gift-image" alt="Barco Pirata">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Passeio de Barco Pirata</h4>
-                            <p class="gift-description">Diversão a bordo do famoso Barco Pirata, navegando pela costa com música e animação.</p>
-                            <div class="gift-price">R$ 180,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 gift-item" data-city="balneario">
-                    <div class="gift-card" onclick="selectGift(6)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Balneário Camboriú</span>
-                            <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600" class="gift-image" alt="Beach Club">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Day Use Beach Club</h4>
-                            <p class="gift-description">Um dia inteiro em um beach club exclusivo com piscina, drinks e vista para o mar.</p>
-                            <div class="gift-price">R$ 300,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- ===== FLORIANÓPOLIS ===== --}}
-                <div class="col-lg-4 col-md-6 gift-item" data-city="florianopolis">
-                    <div class="gift-card" onclick="selectGift(7)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Florianópolis</span>
-                            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=600" class="gift-image" alt="Trilha">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Trilha da Lagoinha do Leste</h4>
-                            <p class="gift-description">Trilha até uma das praias mais bonitas do Brasil, com paisagens de tirar o fôlego.</p>
-                            <div class="gift-price">R$ 200,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 gift-item" data-city="florianopolis">
-                    <div class="gift-card" onclick="selectGift(8)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Florianópolis</span>
-                            <img src="https://images.unsplash.com/photo-1500930287596-c1ecaa210c04?w=600" class="gift-image" alt="Escuna">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Passeio de Escuna</h4>
-                            <p class="gift-description">Navegação pela baía de Florianópolis, passando por ilhas paradisíacas e paradas para mergulho.</p>
-                            <div class="gift-price">R$ 280,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 gift-item" data-city="florianopolis">
-                    <div class="gift-card" onclick="selectGift(9)">
-                        <div class="gift-image-wrapper">
-                            <span class="gift-city-badge">Florianópolis</span>
-                            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600" class="gift-image" alt="Jantar Romântico">
-                        </div>
-                        <div class="gift-body">
-                            <h4 class="gift-name">Jantar Romântico à Beira-Mar</h4>
-                            <p class="gift-description">Noite especial em um restaurante à beira-mar com menu degustação e vista para o pôr do sol.</p>
-                            <div class="gift-price">R$ 400,00</div>
-                            <span class="btn-gift">Presentear</span>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>

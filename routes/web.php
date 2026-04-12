@@ -36,16 +36,29 @@ use App\Http\Controllers\ConteudoMinistradoController;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PresenteController;
+use App\Http\Controllers\ConfirmacaoController;
+use App\Http\Controllers\AdminCasamentoController;
 
 Route::get('/', function () {
     $comprados = \App\Models\PresenteComprado::pluck('presente_id')->toArray();
-    return view('welcome', compact('comprados'));
+    $presentes = \App\Http\Controllers\PresenteController::getPresentes();
+    return view('welcome', compact('comprados', 'presentes'));
 })->name('welcome');
 
-// Presentes (requer login)
 Route::middleware(['auth'])->group(function () {
     Route::get('/presente/{id}', [PresenteController::class, 'show'])->name('presente.show');
     Route::post('/presente/{id}/comprovante', [PresenteController::class, 'uploadComprovante'])->name('presente.comprovante');
+    Route::get('/meus-presentes', [PresenteController::class, 'meusPresentes'])->name('presentes.meus');
+
+    // Confirmação de Presença
+    Route::get('/confirmacao', [ConfirmacaoController::class, 'index'])->name('confirmacao.index');
+    Route::post('/confirmacao', [ConfirmacaoController::class, 'store'])->name('confirmacao.store');
+    Route::put('/confirmacao/{id}/desistir', [ConfirmacaoController::class, 'desistir'])->name('confirmacao.desistir');
+});
+
+// Admin Route
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::get('/admin/casamento/dashboard', [AdminCasamentoController::class, 'dashboard'])->name('admin.casamento.dashboard');
 });
 
 Auth::routes([
