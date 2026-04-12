@@ -598,7 +598,7 @@
         <div class="container">
             <div class="reveal">
                 <p class="section-subtitle">Presentes para a Lua de Mel</p>
-                <h2 class="section-title">Nos Ajude a Realizar esse Sonho</h2>
+                <h2 class="section-title">O nosso Grande Dia</h2>
                 <div class="section-divider"></div>
                 <p class="text-center mb-4" style="color: var(--text-light); font-size: 0.9rem; max-width: 600px; margin: 0 auto 2rem;">
                     Cada presente é uma experiência especial que viveremos juntos na nossa lua de mel.
