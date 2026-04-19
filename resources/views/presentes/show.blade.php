@@ -416,6 +416,79 @@
 @endpush
 
 @section('content')
+@php
+    $linksCartao = [
+        1 => 'https://link.infinitepay.io/jocemary/VC1D-1edJXEOAR-320,00',
+        2 => 'https://link.infinitepay.io/jocemary/VC1D-7gkdkUOSxN-400,00',
+        3 => 'https://link.infinitepay.io/jocemary/VC1D-Ne6lqLmh-521,00',
+        4 => 'https://link.infinitepay.io/jocemary/VC1D-qyILjrDrt-350,00',
+        5 => 'https://link.infinitepay.io/jocemary/VC1D-1HSRef5cAh-900,00',
+        6 => 'https://link.infinitepay.io/jocemary/VC1D-7gkgUzyspr-421,00',
+        7 => 'https://link.infinitepay.io/jocemary/VC1D-7gkgvjef1P-350,00',
+        8 => 'https://link.infinitepay.io/jocemary/VC1D-7gkhNQaQl3-513,00',
+        9 => 'https://link.infinitepay.io/jocemary/VC1D-djDz0MTLd-380,00',
+        10 => 'https://link.infinitepay.io/jocemary/VC1D-7gkiHvumiJ-1200,00',
+        11 => 'https://link.infinitepay.io/jocemary/VC1D-2YuuEdlzax-320,00',
+        12 => 'https://link.infinitepay.io/jocemary/VC1D-Jrc31z6Jb-400,00',
+        13 => 'https://link.infinitepay.io/jocemary/VC1D-1Gp2lAj1v-521,00',
+        14 => 'https://link.infinitepay.io/jocemary/VC1D-Jrc5bL3Sj-450,00',
+        15 => 'https://link.infinitepay.io/jocemary/VC1D-2Yuur0EvlB-900,00',
+        16 => 'https://link.infinitepay.io/jocemary/VC1D-1vBgjvEuo9-150,00',
+        17 => 'https://link.infinitepay.io/jocemary/VC1D-3qNNwmRQgH-150,00',
+        19 => 'https://link.infinitepay.io/jocemary/VC1D-7gkmLD3Ixr-175,00',
+        20 => 'https://link.infinitepay.io/jocemary/VC1D-1XLl12xpJd-175,00',
+        22 => 'https://link.infinitepay.io/jocemary/VC1D-VmaMzPbsR-220,00',
+        23 => 'https://link.infinitepay.io/jocemary/VC1D-Bp3cOtZf-220,00',
+        24 => 'https://link.infinitepay.io/jocemary/VC1D-7gkoLf4gC1-220,00',
+        25 => 'https://link.infinitepay.io/jocemary/VC1D-7gkolaCgwn-225,00',
+        26 => 'https://link.infinitepay.io/jocemary/VC1D-7gkpQGl4ZD-225,00',
+        28 => 'https://link.infinitepay.io/jocemary/VC1D-7gkqgTSCef-300,00',
+        29 => 'https://link.infinitepay.io/jocemary/VC1D-1vBiGvtvvt-300,00',
+        30 => 'https://link.infinitepay.io/jocemary/VC1D-3qNQj7ELAd-300,00',
+        31 => 'https://link.infinitepay.io/jocemary/VC1D-7gkryYl36d-350,00',
+        32 => 'https://link.infinitepay.io/jocemary/VC1D-3qNR9mTGoF-350,00',
+        33 => 'https://link.infinitepay.io/jocemary/VC1D-FtINPLGNl-350,00',
+        34 => 'https://link.infinitepay.io/jocemary/VC1D-7gm9vUH0Kh-180,00',
+        35 => 'https://link.infinitepay.io/jocemary/VC1D-3qO5D1w4gh-250,00',
+        36 => 'https://link.infinitepay.io/jocemary/VC1D-lg15pxGcR-150,00',
+        37 => 'https://link.infinitepay.io/jocemary/VC1D-7gmBR82LFh-200,00',
+        38 => 'https://link.infinitepay.io/jocemary/VC1D-Nq0b35aNZ-160,00',
+        39 => 'https://link.infinitepay.io/jocemary/VC1D-3qO6CJObhF-240,00',
+        40 => 'https://link.infinitepay.io/jocemary/VC1D-7gmD9T9I1V-210,00',
+        41 => 'https://link.infinitepay.io/jocemary/VC1D-3qO6nInbA3-250,00',
+        42 => 'https://link.infinitepay.io/jocemary/VC1D-1XM2mylRK9-150,00',
+        43 => 'https://link.infinitepay.io/jocemary/VC1D-1vC3bn8ylL-180,00',
+        44 => 'https://link.infinitepay.io/jocemary/VC1D-7gmErpCvdr-250,00',
+        45 => 'https://link.infinitepay.io/jocemary/VC1D-JrfzRKJhd-220,00',
+        46 => 'https://link.infinitepay.io/jocemary/VC1D-5IRjcMlOl-230,00',
+        47 => 'https://link.infinitepay.io/jocemary/VC1D-3qO8Jvrg2D-190,00',
+        48 => 'https://link.infinitepay.io/jocemary/VC1D-xb286ykin-170,00',
+    ];
+
+    $chavesPix = [
+        1 => '00020101021126890014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20227Jardim botanico de Curitiba5204000053039865406320.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***63045AA0',
+        2 => '00020101021126900014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20228Tour Gastronomico Curitibano5204000053039865406400.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***63048AC6',
+        3 => '00020101021126910014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20229Passeio de Trem  Serra do Mar5204000053039865406521.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304DB3C',
+        4 => '00020101021126820014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20220Museu Oscar Niemeyer5204000053039865406350.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***63041C02',
+        5 => '00020101021126920014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20230SPA Day para Casal em Curitiba5204000053039865406900.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***63049F04',
+        6 => '00020101021126840014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20222Teleferico  Cristo Luz5204000053039865406421.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304C0FE',
+        7 => '00020101021126850014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20223Passeio de Barco Pirata5204000053039865406350.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304CB05',
+        8 => '00020101021126800014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20218Day Use Beach Club5204000053039865406513.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304C1A2',
+        9 => '00020101021126800014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20218Day Use Beach Club5204000053039865406380.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304855E',
+        10 => '00020101021126790014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20217Jantar Premium BC52040000530398654071200.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***63045F49',
+        11 => '00020101021126890014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20227Trilha da Lagoinha do Leste5204000053039865406320.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304F9F4',
+        12 => '00020101021126910014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20229passeio de escuna pelas ilhas5204000053039865406400.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304A064',
+        13 => '00020101021126900014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20228Jantar Romantico a Beira Mar5204000053039865406521.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***63047949',
+        14 => '00020101021126890014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20227Voo de Parapente em Floripa5204000053039865406450.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304724D',
+        15 => '00020101021126920014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20230suite romantica  cafe da manha5204000053039865406900.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304B909',
+        16 => '00020101021126830014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20221Cafe colonial rustico5204000053039865406150.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304C610',
+        17 => '00020101021126910014br.gov.bcb.pix0136288c593b-7789-4e3b-9488-17a34c0c2aa20229Stand UP Paddle ao por do sol5204000053039865406150.005802BR5922MATHEUS V V DE ANDRADE6009PETROLINA62070503***6304BC70',
+    ];
+
+    $linkCartaoAtual = $linksCartao[$presente['id']] ?? '';
+    $chavePixAtual = $chavesPix[$presente['id']] ?? 'SUA_CHAVE_PIX_AQUI';
+@endphp
+
 <div class="payment-page">
     <div class="container">
         <a href="/#presentes" class="back-link">
@@ -475,7 +548,7 @@
                             Chave PIX (Copia e Cola)
                         </h3>
                         <div class="pix-key-box">
-                            <span class="pix-key-value" id="pixKey">SUA_CHAVE_PIX_AQUI</span>
+                            <span class="pix-key-value" id="pixKey">{{ $chavePixAtual }}</span>
                             <button class="btn-copy" id="btnCopy" onclick="copyPixKey()">
                                 <i class="fas fa-copy me-1"></i> Copiar
                             </button>
@@ -493,7 +566,7 @@
                                 Você será redirecionado para uma página segura de pagamento.
                                 <br>Após o pagamento, volte aqui e anexe o comprovante.
                             </p>
-                            <a href="https://SEU_LINK_DE_PAGAMENTO_AQUI" target="_blank" class="btn-cartao-link">
+                            <a href="{{ $linkCartaoAtual != '' ? $linkCartaoAtual : '#' }}" target="_blank" class="btn-cartao-link" @if($linkCartaoAtual == '') onclick="alert('Link de pagamento em breve!'); return false;" @endif>
                                 <i class="fas fa-external-link-alt me-2"></i> Ir para Pagamento
                             </a>
                         </div>
