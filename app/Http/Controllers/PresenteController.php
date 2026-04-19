@@ -290,6 +290,130 @@ class PresenteController extends Controller
                 'preco' => 350.00,
                 'imagem' => 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',
             ],
+            // 15 novos presentes de restaurantes (R$ 150 a R$ 250)
+            // Curitiba
+            34 => [
+                'id' => 34,
+                'nome' => 'Jantar Italiano em Santa Felicidade',
+                'cidade' => 'Curitiba',
+                'descricao' => 'Banquete italiano completo num dos mais tradicionais restaurantes gastronômicos.',
+                'preco' => 180.00,
+                'imagem' => 'https://picsum.photos/seed/jantaritaliano/600/400',
+            ],
+            35 => [
+                'id' => 35,
+                'nome' => 'Fondue Casal Curitiba',
+                'cidade' => 'Curitiba',
+                'descricao' => 'Sequência completa de fondue (queijo, carne e chocolate) para espantar o frio com muito romance.',
+                'preco' => 250.00,
+                'imagem' => 'https://picsum.photos/seed/fondue/600/400',
+            ],
+            36 => [
+                'id' => 36,
+                'nome' => 'Almoço no Largo da Ordem',
+                'cidade' => 'Curitiba',
+                'descricao' => 'Almoço descontraído acompanhado de chopp artesanal no histórico Largo da Ordem.',
+                'preco' => 150.00,
+                'imagem' => 'https://picsum.photos/seed/largodaordem/600/400',
+            ],
+            37 => [
+                'id' => 37,
+                'nome' => 'Jantar Árabe Especial',
+                'cidade' => 'Curitiba',
+                'descricao' => 'Uma viagem gastronômica ao Oriente Médio com farto banquete árabe de degustação.',
+                'preco' => 200.00,
+                'imagem' => 'https://picsum.photos/seed/arabe/600/400',
+            ],
+            38 => [
+                'id' => 38,
+                'nome' => 'Pizza Premium em Curitiba',
+                'cidade' => 'Curitiba',
+                'descricao' => 'Noite da pizza em local super aconchegante com as melhores redondas ao estilo napolitano.',
+                'preco' => 160.00,
+                'imagem' => 'https://picsum.photos/seed/pizza/600/400',
+            ],
+            // Balneário Camboriú
+            39 => [
+                'id' => 39,
+                'nome' => 'Jantar com Vista Mar em BC',
+                'cidade' => 'Balneário Camboriú',
+                'descricao' => 'Restaurante panorâmico na orla com pratos contemporâneos para o casal.',
+                'preco' => 240.00,
+                'imagem' => 'https://picsum.photos/seed/vistamarbc/600/400',
+            ],
+            40 => [
+                'id' => 40,
+                'nome' => 'Almoço Pescados em BC',
+                'cidade' => 'Balneário Camboriú',
+                'descricao' => 'Generosa porção de pescados fritos num bistrô com clima super tropical.',
+                'preco' => 210.00,
+                'imagem' => 'https://picsum.photos/seed/pescadosbc/600/400',
+            ],
+            41 => [
+                'id' => 41,
+                'nome' => 'Rodízio de Carnes Premium',
+                'cidade' => 'Balneário Camboriú',
+                'descricao' => 'Clássica churrascaria de BC para celebrar com cortes nobres e buffet livre.',
+                'preco' => 250.00,
+                'imagem' => 'https://picsum.photos/seed/churrasco/600/400',
+            ],
+            42 => [
+                'id' => 42,
+                'nome' => 'Hambúrguer Artesanal do Casal',
+                'cidade' => 'Balneário Camboriú',
+                'descricao' => 'Combos completões nas melhores hamburguerias temáticas espalhadas por BC.',
+                'preco' => 150.00,
+                'imagem' => 'https://picsum.photos/seed/burger/600/400',
+            ],
+            43 => [
+                'id' => 43,
+                'nome' => 'Noite Mexicana em BC',
+                'cidade' => 'Balneário Camboriú',
+                'descricao' => 'Muita animação, tacos, burritos e margaritas numa das famosas casas mexicanas.',
+                'preco' => 180.00,
+                'imagem' => 'https://picsum.photos/seed/mexicano/600/400',
+            ],
+            // Florianópolis
+            44 => [
+                'id' => 44,
+                'nome' => 'Sequência de Camarão na Lagoa',
+                'cidade' => 'Florianópolis',
+                'descricao' => 'Tradicional e farta sequência de camarão à beira da maravilhosa Lagoa da Conceição.',
+                'preco' => 250.00,
+                'imagem' => 'https://picsum.photos/seed/camaraolagoa/600/400',
+            ],
+            45 => [
+                'id' => 45,
+                'nome' => 'Jantar Açoriano Tradicional',
+                'cidade' => 'Florianópolis',
+                'descricao' => 'Saboreando as raízes de Floripa em um autêntico restaurante com receitas coloniais.',
+                'preco' => 220.00,
+                'imagem' => 'https://picsum.photos/seed/acoriano/600/400',
+            ],
+            46 => [
+                'id' => 46,
+                'nome' => 'Ostras e Frutos do Mar',
+                'cidade' => 'Florianópolis',
+                'descricao' => 'Experiência gastronômica incrível em Santo Antônio de Lisboa saboreando as melhores ostras.',
+                'preco' => 230.00,
+                'imagem' => 'https://picsum.photos/seed/ostras/600/400',
+            ],
+            47 => [
+                'id' => 47,
+                'nome' => 'Almoço Beira-Mar Praia Mole',
+                'cidade' => 'Florianópolis',
+                'descricao' => 'Menu praiano com os pés na areia badalada da Praia Mole.',
+                'preco' => 190.00,
+                'imagem' => 'https://picsum.photos/seed/praiamole/600/400',
+            ],
+            48 => [
+                'id' => 48,
+                'nome' => 'Jantar de Massas na Ilha',
+                'cidade' => 'Florianópolis',
+                'descricao' => 'Uma cantina charmosa e escondida no centrinho da Lagoa com o melhor da culinária italiana.',
+                'preco' => 170.00,
+                'imagem' => 'https://picsum.photos/seed/massasilha/600/400',
+            ],
         ];
     }
 
@@ -299,6 +423,32 @@ class PresenteController extends Controller
     public static function getComprados()
     {
         return PresenteComprado::pluck('presente_id')->toArray();
+    }
+
+    public function bloquear(Request $request, $id)
+    {
+        $id = (int) $id;
+        $presentes = self::getPresentes();
+
+        if (!isset($presentes[$id])) {
+            return response()->json(['success' => false, 'message' => 'Presente não encontrado.'], 404);
+        }
+
+        $jaComprado = PresenteComprado::where('presente_id', $id)->first();
+        if ($jaComprado && $jaComprado->user_id !== Auth::id()) {
+            return response()->json(['success' => false, 'message' => 'Este presente já foi escolhido.'], 409);
+        }
+
+        if (!$jaComprado) {
+            PresenteComprado::create([
+                'presente_id' => $id,
+                'user_id' => Auth::id(),
+                'metodo_pagamento' => 'pendente',
+                'comprovante_path' => null,
+            ]);
+        }
+
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -313,9 +463,9 @@ class PresenteController extends Controller
             return redirect('/')->with('error', 'Presente não encontrado.');
         }
 
-        // Verificar se já foi comprado
-        $jaComprado = PresenteComprado::where('presente_id', $id)->exists();
-        if ($jaComprado) {
+        // Verificar se já foi comprado por outra pessoa
+        $jaComprado = PresenteComprado::where('presente_id', $id)->first();
+        if ($jaComprado && $jaComprado->user_id !== Auth::id()) {
             return redirect('/#presentes')->with('error', 'Este presente já foi escolhido por outro convidado.');
         }
 
@@ -341,9 +491,9 @@ class PresenteController extends Controller
             return response()->json(['success' => false, 'message' => 'Presente não encontrado.'], 404);
         }
 
-        // Verificar se já foi comprado
-        $jaComprado = PresenteComprado::where('presente_id', $id)->exists();
-        if ($jaComprado) {
+        // Verificar se já foi comprado por outro
+        $jaComprado = PresenteComprado::where('presente_id', $id)->first();
+        if ($jaComprado && $jaComprado->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'Este presente já foi escolhido por outro convidado.'], 409);
         }
 
@@ -354,13 +504,20 @@ class PresenteController extends Controller
         $fileName = 'comprovante_' . $user->id . '_presente_' . $id . '_' . time() . '.' . $request->file('comprovante')->getClientOriginalExtension();
         $path = $request->file('comprovante')->storeAs('comprovantes', $fileName, 'public');
 
-        // Registrar compra
-        PresenteComprado::create([
-            'presente_id' => $id,
-            'user_id' => $user->id,
-            'metodo_pagamento' => $request->input('metodo_pagamento'),
-            'comprovante_path' => $path,
-        ]);
+        // Registrar compra ou atualizar caso já tenha sido bloqueado
+        if ($jaComprado) {
+            $jaComprado->update([
+                'metodo_pagamento' => $request->input('metodo_pagamento'),
+                'comprovante_path' => $path,
+            ]);
+        } else {
+            PresenteComprado::create([
+                'presente_id' => $id,
+                'user_id' => $user->id,
+                'metodo_pagamento' => $request->input('metodo_pagamento'),
+                'comprovante_path' => $path,
+            ]);
+        }
 
         return response()->json([
             'success' => true,

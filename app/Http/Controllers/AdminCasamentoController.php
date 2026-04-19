@@ -53,4 +53,19 @@ class AdminCasamentoController extends Controller
             'totalArrecadado'
         ));
     }
+
+    /**
+     * Remove o bloqueio (compra) de um presente
+     */
+    public function desbloquear($id)
+    {
+        $compra = PresenteComprado::find($id);
+        
+        if ($compra) {
+            $compra->delete();
+            return redirect()->back()->with('success', 'Presente desbloqueado com sucesso!');
+        }
+
+        return redirect()->back()->with('error', 'Registro de presente não encontrado.');
+    }
 }

@@ -181,6 +181,7 @@
                             <th>Valor</th>
                             <th>Método</th>
                             <th>Data</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -191,10 +192,19 @@
                             <td style="color: var(--rose-dark); font-weight: 600;">R$ {{ number_format($pr['preco'], 2, ',', '.') }}</td>
                             <td><span style="text-transform: uppercase; font-size: 0.8rem; font-weight: bold; color: #888;"><i class="fas {{ $pr['metodo'] == 'pix' ? 'fa-qrcode' : 'fa-credit-card' }}"></i> {{ $pr['metodo'] }}</span></td>
                             <td>{{ \Carbon\Carbon::parse($pr['data_compra'])->format('d/m/Y H:i') }}</td>
+                            <td>
+                                <form action="{{ route('admin.casamento.presente.desbloquear', $pr['id']) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desbloquear este presente?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Desbloquear Presente">
+                                        <i class="fas fa-unlock"></i> Desbloquear
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center py-4">Nenhum presente registrado ainda.</td>
+                            <td colspan="6" class="text-center py-4">Nenhum presente registrado ainda.</td>
                         </tr>
                         @endforelse
                     </tbody>

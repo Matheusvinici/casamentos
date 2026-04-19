@@ -670,7 +670,7 @@
                         $isSold = in_array($presente['id'], $comprados);
                     @endphp
                     <div class="col-lg-4 col-md-6 gift-item" data-city="{{ $citySlug }}">
-                        <div class="gift-card {{ $isSold ? 'sold' : '' }}" onclick="selectGift({{ $presente['id'] }})">
+                        <div class="gift-card {{ $isSold ? 'sold' : '' }}" onclick="selectGift({{ $presente['id'] }}, '{{ addslashes($presente['nome']) }}', '{{ number_format($presente['preco'], 2, ',', '.') }}')">
                             <div class="gift-image-wrapper">
                                 <span class="gift-city-badge">{{ $presente['cidade'] }}</span>
                                 <img src="{{ $presente['imagem'] }}" class="gift-image" alt="{{ $presente['nome'] }}" onerror="this.src='https://images.unsplash.com/photo-1549468057-5ce754b4f175?w=600'">
@@ -767,12 +767,51 @@
     }
 
     // ===== SELECT GIFT =====
-    function selectGift(giftId) {
+    function selectGift(giftId, giftName, giftPrice) {
         @auth
-            window.location.href = '/presente/' + giftId;
+            Swal.fire({
+                title: 'Confirmar Presente?',
+                html: `Deseja realmente confirmar a escolha deste presente?<br><br><b>${giftName}</b> (R$ ${giftPrice})<br><br><small>Você poderá efetuar o pagamento via Cartão ou PIX na próxima tela.</small>`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#c9a87c',
+                cancelButtonColor: '#a07d50',
+                confirmButtonText: 'Sim, quero presentear!',
+                cancelButtonText: 'Voltar',
+                background: '#faf8f5',
+                color: '#3d3427',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return fetch(`/presente/${giftId}/bloquear`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            throw new Error(data.message || 'Erro ao bloquear presente');
+                        }
+                        return data;
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(`Oops: ${error.message}`);
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/presente/' + giftId;
+                }
+            });
         @else
             // Save intended gift in session/localStorage and redirect to login
             localStorage.setItem('intended_gift', giftId);
+            localStorage.setItem('intended_gift_name', giftName);
+            localStorage.setItem('intended_gift_price', giftPrice);
+            
             Swal.fire({
                 title: 'Faça login para presentear',
                 text: 'Você precisa criar uma conta ou fazer login para comprar um presente.',
@@ -794,5 +833,26 @@
             });
         @endauth
     }
+
+    // Check if user came back from login with an intended gift
+    document.addEventListener('DOMContentLoaded', function() {
+        @auth
+            const intendedGift = localStorage.getItem('intended_gift');
+            const intendedGiftName = localStorage.getItem('intended_gift_name');
+            const intendedGiftPrice = localStorage.getItem('intended_gift_price');
+            
+            if (intendedGift && intendedGiftName && intendedGiftPrice) {
+                // Remove from storage to prevent multiple triggers
+                localStorage.removeItem('intended_gift');
+                localStorage.removeItem('intended_gift_name');
+                localStorage.removeItem('intended_gift_price');
+                
+                // Small delay to ensure smooth UI transition
+                setTimeout(() => {
+                    selectGift(intendedGift, intendedGiftName, intendedGiftPrice);
+                }, 500);
+            }
+        @endauth
+    });
 </script>
 @endpush

@@ -47,6 +47,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/presente/{id}', [PresenteController::class, 'show'])->name('presente.show');
+    Route::post('/presente/{id}/bloquear', [PresenteController::class, 'bloquear'])->name('presente.bloquear');
     Route::post('/presente/{id}/comprovante', [PresenteController::class, 'uploadComprovante'])->name('presente.comprovante');
     Route::get('/meus-presentes', [PresenteController::class, 'meusPresentes'])->name('presentes.meus');
 
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
 // Admin Route
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin/casamento/dashboard', [AdminCasamentoController::class, 'dashboard'])->name('admin.casamento.dashboard');
+    Route::delete('/admin/casamento/presente/{id}/desbloquear', [AdminCasamentoController::class, 'desbloquear'])->name('admin.casamento.presente.desbloquear');
 });
 
 Auth::routes([
