@@ -533,6 +533,193 @@
         .filter-tabs { gap: 0.3rem; }
         .filter-tab { padding: 0.4rem 1rem; font-size: 0.7rem; }
     }
+
+    /* ===== RSVP BANNER SECTION ===== */
+    .rsvp-banner-section {
+        position: relative;
+        padding: 5rem 0;
+        background: linear-gradient(180deg, #ede4d8 0%, #e8ddd0 50%, #ede4d8 100%);
+        border-top: 1px solid rgba(201,168,124,0.2);
+        border-bottom: 1px solid rgba(201,168,124,0.2);
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .rsvp-floating-hearts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .rsvp-heart {
+        position: absolute;
+        bottom: -30px;
+        font-size: 1.2rem;
+        color: rgba(201,168,124,0.2);
+        animation: floatHeart 8s ease-in-out infinite;
+    }
+
+    @keyframes floatHeart {
+        0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-600px) rotate(45deg); opacity: 0; }
+    }
+
+    .rsvp-banner-content {
+        position: relative;
+        z-index: 2;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .rsvp-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--rose-light), var(--rose));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: var(--white);
+        box-shadow: 0 10px 40px rgba(201,168,124,0.2);
+        animation: pulseIcon 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseIcon {
+        0%, 100% { box-shadow: 0 10px 40px rgba(201,168,124,0.2); transform: scale(1); }
+        50% { box-shadow: 0 10px 50px rgba(201,168,124,0.35); transform: scale(1.05); }
+    }
+
+    .rsvp-label {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--rose-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .rsvp-heading {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.8rem, 5vw, 2.8rem);
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+        font-weight: 400;
+    }
+
+    .rsvp-divider {
+        width: 50px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--rose), transparent);
+        margin: 1rem auto 1.5rem;
+    }
+
+    .rsvp-text {
+        color: var(--text-medium);
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+    }
+
+    .rsvp-text strong {
+        color: var(--rose-dark);
+    }
+
+    .btn-rsvp {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+        color: var(--white);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 1.1rem 3rem;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 30px rgba(201,168,124,0.3);
+        animation: pulseBtn 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseBtn {
+        0%, 100% { box-shadow: 0 8px 30px rgba(201,168,124,0.3); }
+        50% { box-shadow: 0 8px 45px rgba(201,168,124,0.5); }
+    }
+
+    .btn-rsvp:hover {
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 12px 40px rgba(201,168,124,0.5);
+        color: var(--white);
+    }
+
+    .btn-rsvp-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+        animation: shine 3s ease-in-out infinite;
+    }
+
+    @keyframes shine {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: 100%; }
+    }
+
+    .rsvp-note {
+        margin-top: 1.5rem;
+        color: var(--text-light);
+        font-size: 0.8rem;
+        font-style: italic;
+    }
+
+    .rsvp-confirmed-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-bottom: 2rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .rsvp-confirmed-item {
+        display: flex;
+        align-items: center;
+        background: var(--white);
+        border: 1px solid rgba(201,168,124,0.25);
+        padding: 0.5rem 1.2rem;
+        border-radius: 25px;
+        color: var(--text-dark);
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(201,168,124,0.1);
+    }
+
+    .rsvp-confirmed-item:hover {
+        background: var(--cream);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(201,168,124,0.2);
+    }
+
+    @media (max-width: 576px) {
+        .rsvp-banner-section { padding: 3.5rem 1rem; }
+        .btn-rsvp { padding: 0.9rem 2rem; font-size: 0.85rem; letter-spacing: 1px; }
+        .rsvp-icon-wrapper { width: 65px; height: 65px; font-size: 1.6rem; }
+    }
 </style>
 @endpush
 
@@ -568,7 +755,10 @@
             </div>
 
             <div class="hero-cta">
-                <a href="#presentes" class="btn-elegant">Ver Presentes</a>
+                <a href="#rsvp" class="btn-elegant" style="margin-right: 0.8rem;">
+                    <i class="fas fa-calendar-check me-1"></i> Confirmar Presença
+                </a>
+                <a href="#presentes" class="btn-elegant" style="background: transparent; border: 2px solid var(--rose-light);">Ver Presentes</a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -635,6 +825,98 @@
                 <img src="{{ asset('images/foto4.jpeg') }}" class="gallery-img img-4" alt="Romance 4">
             </div>
             
+        </div>
+    </section>
+
+    <!-- ===== RSVP SECTION ===== -->
+    <section class="rsvp-banner-section" id="rsvp">
+        <div class="rsvp-floating-hearts">
+            <span class="rsvp-heart" style="left:5%; animation-delay:0s;">♥</span>
+            <span class="rsvp-heart" style="left:15%; animation-delay:1.5s;">♥</span>
+            <span class="rsvp-heart" style="left:30%; animation-delay:0.8s;">♥</span>
+            <span class="rsvp-heart" style="left:50%; animation-delay:2.2s;">♥</span>
+            <span class="rsvp-heart" style="left:70%; animation-delay:0.3s;">♥</span>
+            <span class="rsvp-heart" style="left:85%; animation-delay:1.8s;">♥</span>
+            <span class="rsvp-heart" style="left:95%; animation-delay:1s;">♥</span>
+        </div>
+        <div class="container">
+            <div class="rsvp-banner-content reveal">
+                @auth
+                    @if($minhasConfirmacoes->count() > 0)
+                        {{-- LOGADO COM CONFIRMAÇÕES --}}
+                        <div class="rsvp-icon-wrapper">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <p class="rsvp-label">Presença Confirmada</p>
+                        <h2 class="rsvp-heading">Nos vemos lá! 🎉</h2>
+                        <div class="rsvp-divider"></div>
+                        <p class="rsvp-text">
+                            Olá, <strong>{{ Auth::user()->name }}</strong>! Que alegria saber que você estará conosco.<br>
+                            {{ $minhasConfirmacoes->count() == 1 ? 'Você confirmou 1 pessoa' : 'Você confirmou ' . $minhasConfirmacoes->count() . ' pessoas' }}:
+                        </p>
+
+                        <div class="rsvp-confirmed-list">
+                            @foreach($minhasConfirmacoes as $conf)
+                                <div class="rsvp-confirmed-item">
+                                    <i class="fas fa-check-circle" style="color: var(--rose-dark); margin-right: 0.5rem;"></i>
+                                    <span>{{ $conf->nome_completo }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <a href="{{ route('confirmacao.index') }}" class="btn-rsvp" style="animation: none;">
+                            <i class="fas fa-user-plus me-2"></i> Gerenciar Confirmações
+                            <span class="btn-rsvp-shine"></span>
+                        </a>
+                        <p class="rsvp-note">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Você pode adicionar ou remover convidados até 05 de Maio de 2026.
+                        </p>
+                    @else
+                        {{-- LOGADO SEM CONFIRMAÇÕES --}}
+                        <div class="rsvp-icon-wrapper">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <p class="rsvp-label">Sua presença é o nosso maior presente</p>
+                        <h2 class="rsvp-heading">Confirme sua Presença</h2>
+                        <div class="rsvp-divider"></div>
+                        <p class="rsvp-text">
+                            Olá, <strong>{{ Auth::user()->name }}</strong>! Ainda não vimos sua confirmação.<br>
+                            Ficaremos imensamente felizes em celebrar este momento com você.<br>
+                            Confirme até <strong>05 de Maio de 2026</strong>.
+                        </p>
+                        <a href="{{ route('confirmacao.index') }}" class="btn-rsvp" id="btnRsvp">
+                            <i class="fas fa-calendar-check me-2"></i> Confirmar Presença Agora
+                            <span class="btn-rsvp-shine"></span>
+                        </a>
+                        <p class="rsvp-note">
+                            <i class="fas fa-exclamation-triangle me-1" style="color: var(--gold);"></i>
+                            Você ainda não confirmou presença. Clique acima para confirmar!
+                        </p>
+                    @endif
+                @else
+                    {{-- NÃO LOGADO --}}
+                    <div class="rsvp-icon-wrapper">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <p class="rsvp-label">Sua presença é o nosso maior presente</p>
+                    <h2 class="rsvp-heading">Confirme sua Presença</h2>
+                    <div class="rsvp-divider"></div>
+                    <p class="rsvp-text">
+                        Ficaremos imensamente felizes em celebrar este momento tão especial com você.<br>
+                        Por favor, confirme sua presença até <strong>05 de Maio de 2026</strong>.
+                    </p>
+                    <a href="{{ route('confirmacao.index') }}" class="btn-rsvp" id="btnRsvp">
+                        <i class="fas fa-calendar-check me-2"></i> Confirmar Presença
+                        <span class="btn-rsvp-shine"></span>
+                    </a>
+                    <p class="rsvp-note">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Você precisará fazer login ou criar uma conta rápida para confirmar.
+                    </p>
+                    <p style="font-size: 1.0rem; color: rgba(0,0,0,0.1); margin-top: 1.5rem; letter-spacing: 3px;">Vai Corinthians!!!</p>
+                @endauth
+            </div>
         </div>
     </section>
 

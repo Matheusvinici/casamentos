@@ -42,7 +42,14 @@ use App\Http\Controllers\AdminCasamentoController;
 Route::get('/', function () {
     $comprados = \App\Models\PresenteComprado::pluck('presente_id')->toArray();
     $presentes = \App\Http\Controllers\PresenteController::getPresentes();
-    return view('welcome', compact('comprados', 'presentes'));
+    $minhasConfirmacoes = collect();
+    if (\Illuminate\Support\Facades\Auth::check()) {
+        $minhasConfirmacoes = \App\Models\ConfirmacaoPresenca::where('user_id', \Illuminate\Support\Facades\Auth::id())
+            ->where('status', 'confirmado')
+            ->orderBy('created_at', 'asc')
+            ->get();
+    }
+    return view('welcome', compact('comprados', 'presentes', 'minhasConfirmacoes'));
 })->name('welcome');
 
 Route::middleware(['auth'])->group(function () {

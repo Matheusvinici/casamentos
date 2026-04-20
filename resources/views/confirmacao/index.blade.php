@@ -127,11 +127,11 @@
                                     <button type="submit" class="btn-submit">Confirmar</button>
                                 </div>
                             </div>
-                            <small class="text-muted"><i class="fas fa-info-circle"></i> O prazo limite para novas confirmações é 30/04/2026.</small>
+                            <small class="text-muted"><i class="fas fa-info-circle"></i> O prazo limite para novas confirmações é 05/05/2026.</small>
                         </form>
                     @else
                         <div class="alert alert-warning text-center">
-                            <strong>O prazo para novas confirmações encerrou em 30 de abril de 2026.</strong><br>
+                            <strong>O prazo para novas confirmações encerrou em 05 de maio de 2026.</strong><br>
                             Em caso de dúvidas, entre em contato com os noivos.
                         </div>
                     @endif

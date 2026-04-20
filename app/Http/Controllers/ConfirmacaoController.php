@@ -14,8 +14,8 @@ class ConfirmacaoController extends Controller
      */
     private function canAddConfirmation()
     {
-        // Prazo final: 30 de abril de 2026
-        $deadline = Carbon::create(2026, 4, 30, 23, 59, 59);
+        // Prazo final: 5 de maio de 2026
+        $deadline = Carbon::create(2026, 5, 5, 23, 59, 59);
         return Carbon::now()->lessThanOrEqualTo($deadline);
     }
 
@@ -40,7 +40,7 @@ class ConfirmacaoController extends Controller
     public function store(Request $request)
     {
         if (!$this->canAddConfirmation()) {
-            return redirect()->route('confirmacao.index')->with('error', 'O prazo para novas confirmações encerrou em 30 de abril de 2026.');
+            return redirect()->route('confirmacao.index')->with('error', 'O prazo para novas confirmações encerrou em 05 de maio de 2026.');
         }
 
         $request->validate([

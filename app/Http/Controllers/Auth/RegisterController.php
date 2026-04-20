@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -45,5 +46,14 @@ class RegisterController extends Controller
             'phone1' => $data['phone1'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * After registration, redirect to the intended URL (e.g. /confirmacao)
+     * instead of the default redirect path.
+     */
+    protected function registered(Request $request, $user)
+    {
+        return redirect()->intended($this->redirectPath());
     }
 }

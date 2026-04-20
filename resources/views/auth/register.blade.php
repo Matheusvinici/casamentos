@@ -3,6 +3,16 @@
 @section('title', 'Criar Conta - Nosso Casamento')
 
 @section('content')
+    @if(session()->has('url.intended') && str_contains(session('url.intended'), 'confirmacao'))
+        <div style="background: linear-gradient(135deg, rgba(201,168,124,0.15), rgba(212,168,83,0.1)); border: 1px solid rgba(201,168,124,0.3); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; text-align: center;">
+            <i class="fas fa-calendar-check" style="color: var(--rose-dark); font-size: 1.3rem; margin-bottom: 0.3rem; display: block;"></i>
+            <strong style="color: var(--text-dark); font-size: 0.9rem;">Confirme sua Presença</strong>
+            <p style="color: var(--text-medium); font-size: 0.8rem; margin: 0.3rem 0 0;">
+                Crie sua conta para confirmar presença no casamento de Mary & Matheus.
+            </p>
+        </div>
+    @endif
+
     <h2 class="auth-title">Criar sua conta</h2>
 
     <form method="POST" action="{{ route('register') }}">
