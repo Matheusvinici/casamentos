@@ -66,7 +66,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Passeio de teleférico com vista panorâmica e visita ao mirante do Cristo Luz ao entardecer.',
                 'preco' => 421.00,
-                'imagem' => 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600',
+                'imagem' => 'https://loremflickr.com/600/400/cablecar,view/all',
             ],
             7 => [
                 'id' => 7,
@@ -90,7 +90,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Experiência na maior roda-gigante do Brasil com cabine exclusiva e vista 360° ao pôr do sol.',
                 'preco' => 380.00,
-                'imagem' => 'https://picsum.photos/seed/rodagigante/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1657012222671-5d5dc8a57f37?w=600',
             ],
             10 => [
                 'id' => 10,
@@ -130,7 +130,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Voo duplo de parapente na Praia Mole com vista aérea incrível da costa catarinense e fotos profissionais.',
                 'preco' => 450.00,
-                'imagem' => 'https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?w=600',
+                'imagem' => 'https://loremflickr.com/600/400/paragliding,sky/all',
             ],
             15 => [
                 'id' => 15,
@@ -163,7 +163,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Experiência de mergulho livre (snorkel) observando a vida marinha nas piscinas naturais.',
                 'preco' => 150.00,
-                'imagem' => 'https://picsum.photos/seed/snorkel/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1520116468816-95b69f847357?w=600',
             ],
             // 3 presentes de 175
             19 => [
@@ -188,7 +188,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Aluguel de quadriciclo para uma aventura emocionante nas trilhas costeiras da ilha da magia.',
                 'preco' => 175.00,
-                'imagem' => 'https://picsum.photos/seed/quadriciclo/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1496521061024-90e1c1221555?w=600',
             ],
             // 3 presentes de 220
             22 => [
@@ -197,7 +197,7 @@ class PresenteController extends Controller
                 'cidade' => 'Curitiba',
                 'descricao' => 'Tradicionalíssimo almoço italiano farto no polo gastronômico de Santa Felicidade.',
                 'preco' => 220.00,
-                'imagem' => 'https://picsum.photos/seed/almoco/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/pasta,italian/all',
             ],
             23 => [
                 'id' => 23,
@@ -213,7 +213,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Translado e acesso à paradisíaca Ilha do Campeche, também conhecida como o Caribe brasileiro.',
                 'preco' => 220.00,
-                'imagem' => 'https://picsum.photos/seed/campeche/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/tropical,island/all',
             ],
             // 3 presentes de 225
             25 => [
@@ -255,7 +255,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Breve passeio de lancha pelo litoral catarinense num modelo confortável só para o casal.',
                 'preco' => 300.00,
-                'imagem' => 'https://picsum.photos/seed/lancha/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/speedboat,ocean/all',
             ],
             30 => [
                 'id' => 30,
@@ -263,7 +263,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Muita mordomia e conforto em um Day Use fantástico em um dos points mais balados.',
                 'preco' => 300.00,
-                'imagem' => 'https://picsum.photos/seed/jurere/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/beachclub,pool/all',
             ],
             // 3 presentes de 350
             31 => [
@@ -280,7 +280,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Ingressos do casal para um dia inteirinho e mágico e cheio de adrenalina no parque.',
                 'preco' => 350.00,
-                'imagem' => 'https://picsum.photos/seed/betocarrero/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/rollercoaster,park/all',
             ],
             33 => [
                 'id' => 33,
@@ -298,7 +298,7 @@ class PresenteController extends Controller
                 'cidade' => 'Curitiba',
                 'descricao' => 'Banquete italiano completo num dos mais tradicionais restaurantes gastronômicos.',
                 'preco' => 180.00,
-                'imagem' => 'https://picsum.photos/seed/jantaritaliano/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600',
             ],
             35 => [
                 'id' => 35,
@@ -306,7 +306,7 @@ class PresenteController extends Controller
                 'cidade' => 'Curitiba',
                 'descricao' => 'Sequência completa de fondue (queijo, carne e chocolate) para espantar o frio com muito romance.',
                 'preco' => 250.00,
-                'imagem' => 'https://picsum.photos/seed/fondue/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1630257574313-9bacc3c521d8?w=600',
             ],
             36 => [
                 'id' => 36,
@@ -314,7 +314,7 @@ class PresenteController extends Controller
                 'cidade' => 'Curitiba',
                 'descricao' => 'Almoço descontraído acompanhado de chopp artesanal no histórico Largo da Ordem.',
                 'preco' => 150.00,
-                'imagem' => 'https://picsum.photos/seed/largodaordem/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/brazilian,food/all',
             ],
             37 => [
                 'id' => 37,
@@ -322,7 +322,7 @@ class PresenteController extends Controller
                 'cidade' => 'Curitiba',
                 'descricao' => 'Uma viagem gastronômica ao Oriente Médio com farto banquete árabe de degustação.',
                 'preco' => 200.00,
-                'imagem' => 'https://picsum.photos/seed/arabe/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600',
             ],
             38 => [
                 'id' => 38,
@@ -330,7 +330,7 @@ class PresenteController extends Controller
                 'cidade' => 'Curitiba',
                 'descricao' => 'Noite da pizza em local super aconchegante com as melhores redondas ao estilo napolitano.',
                 'preco' => 160.00,
-                'imagem' => 'https://picsum.photos/seed/pizza/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600',
             ],
             // Balneário Camboriú
             39 => [
@@ -339,7 +339,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Restaurante panorâmico na orla com pratos contemporâneos para o casal.',
                 'preco' => 240.00,
-                'imagem' => 'https://picsum.photos/seed/vistamarbc/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1772352214475-12f9a75618d8?w=600',
             ],
             40 => [
                 'id' => 40,
@@ -347,7 +347,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Generosa porção de pescados fritos num bistrô com clima super tropical.',
                 'preco' => 210.00,
-                'imagem' => 'https://picsum.photos/seed/pescadosbc/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/fish,dish/all',
             ],
             41 => [
                 'id' => 41,
@@ -355,7 +355,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Clássica churrascaria de BC para celebrar com cortes nobres e buffet livre.',
                 'preco' => 250.00,
-                'imagem' => 'https://picsum.photos/seed/churrasco/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/barbecue,meat/all',
             ],
             42 => [
                 'id' => 42,
@@ -363,7 +363,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Combos completões nas melhores hamburguerias temáticas espalhadas por BC.',
                 'preco' => 150.00,
-                'imagem' => 'https://picsum.photos/seed/burger/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/burger,fries/all',
             ],
             43 => [
                 'id' => 43,
@@ -371,7 +371,7 @@ class PresenteController extends Controller
                 'cidade' => 'Balneário Camboriú',
                 'descricao' => 'Muita animação, tacos, burritos e margaritas numa das famosas casas mexicanas.',
                 'preco' => 180.00,
-                'imagem' => 'https://picsum.photos/seed/mexicano/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/tacos,mexican/all',
             ],
             // Florianópolis
             44 => [
@@ -380,7 +380,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Tradicional e farta sequência de camarão à beira da maravilhosa Lagoa da Conceição.',
                 'preco' => 250.00,
-                'imagem' => 'https://picsum.photos/seed/camaraolagoa/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/shrimp,seafood/all',
             ],
             45 => [
                 'id' => 45,
@@ -388,7 +388,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Saboreando as raízes de Floripa em um autêntico restaurante com receitas coloniais.',
                 'preco' => 220.00,
-                'imagem' => 'https://picsum.photos/seed/acoriano/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/stew,seafood/all',
             ],
             46 => [
                 'id' => 46,
@@ -396,7 +396,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Experiência gastronômica incrível em Santo Antônio de Lisboa saboreando as melhores ostras.',
                 'preco' => 230.00,
-                'imagem' => 'https://picsum.photos/seed/ostras/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1578882422378-9ed72be08b5e?w=600',
             ],
             47 => [
                 'id' => 47,
@@ -404,7 +404,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Menu praiano com os pés na areia badalada da Praia Mole.',
                 'preco' => 190.00,
-                'imagem' => 'https://picsum.photos/seed/praiamole/600/400',
+                'imagem' => 'https://loremflickr.com/600/400/beach,restaurant/all',
             ],
             48 => [
                 'id' => 48,
@@ -412,7 +412,7 @@ class PresenteController extends Controller
                 'cidade' => 'Florianópolis',
                 'descricao' => 'Uma cantina charmosa e escondida no centrinho da Lagoa com o melhor da culinária italiana.',
                 'preco' => 170.00,
-                'imagem' => 'https://picsum.photos/seed/massasilha/600/400',
+                'imagem' => 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600',
             ],
         ];
     }
