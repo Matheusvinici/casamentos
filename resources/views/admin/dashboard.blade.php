@@ -134,7 +134,17 @@
 
         <!-- Presenças Table -->
         <div class="admin-table-card">
-            <h3 class="admin-table-title"><i class="fas fa-list-ul me-2"></i> Lista de Confirmações (RSVP)</h3>
+            <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+                <h3 class="admin-table-title border-bottom-0 pb-0 mb-0"><i class="fas fa-list-ul me-2"></i> Lista de Confirmações (RSVP)</h3>
+                <div>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addConfirmacaoModal">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
+                    <a href="{{ route('admin.casamento.relatorio.confirmacoes') }}" class="btn btn-sm btn-danger" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Gerar PDF
+                    </a>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-custom table-hover">
                     <thead>
@@ -143,6 +153,7 @@
                             <th>Confirmado Por (Hóspede)</th>
                             <th>Datação</th>
                             <th>Status</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,10 +169,49 @@
                                     <span class="badge-admin badge-danger">Desistiu</span>
                                 @endif
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editConfirmacaoModal{{ $p->id }}" title="Editar Convidado">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
                         </tr>
+
+                        <!-- Modal Edit Confirmação -->
+                        <div class="modal fade" id="editConfirmacaoModal{{ $p->id }}" tabindex="-1" aria-labelledby="editConfirmacaoModalLabel{{ $p->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="{{ route('admin.casamento.confirmacao.update', $p->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editConfirmacaoModalLabel{{ $p->id }}">Editar Confirmação</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="nome_completo_{{ $p->id }}" class="form-label">Nome Completo</label>
+                                                <input type="text" class="form-control" id="nome_completo_{{ $p->id }}" name="nome_completo" value="{{ $p->nome_completo }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="status_{{ $p->id }}" class="form-label">Status</label>
+                                                <select class="form-select" id="status_{{ $p->id }}" name="status" required>
+                                                    <option value="confirmado" {{ $p->status == 'confirmado' ? 'selected' : '' }}>Confirmado</option>
+                                                    <option value="desistiu" {{ $p->status == 'desistiu' ? 'selected' : '' }}>Desistiu</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fim Modal -->
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center py-4">Nenhuma confirmação de presença registrada ainda.</td>
+                            <td colspan="5" class="text-center py-4">Nenhuma confirmação de presença registrada ainda.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -171,7 +221,12 @@
 
         <!-- Presentes Table -->
         <div class="admin-table-card">
-            <h3 class="admin-table-title"><i class="fas fa-box-open me-2"></i> Lista de Presentes e Apoiadores</h3>
+            <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+                <h3 class="admin-table-title border-bottom-0 pb-0 mb-0"><i class="fas fa-box-open me-2"></i> Lista de Presentes e Apoiadores</h3>
+                <a href="{{ route('admin.casamento.relatorio.presentes') }}" class="btn btn-sm btn-danger" target="_blank">
+                    <i class="fas fa-file-pdf"></i> Gerar PDF
+                </a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-custom table-hover">
                     <thead>
@@ -211,6 +266,41 @@
                 </table>
             </div>
         </div>
+
+        </div>
+
+        <!-- Modal Adicionar Confirmação -->
+        <div class="modal fade" id="addConfirmacaoModal" tabindex="-1" aria-labelledby="addConfirmacaoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('admin.casamento.confirmacao.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addConfirmacaoModalLabel">Adicionar Nova Confirmação</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nome_completo" class="form-label">Nome Completo do Convidado</label>
+                                <input type="text" class="form-control" id="nome_completo" name="nome_completo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option value="confirmado">Confirmado</option>
+                                    <option value="desistiu">Desistiu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal -->
 
     </div>
 </div>

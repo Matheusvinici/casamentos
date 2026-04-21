@@ -68,6 +68,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin/casamento/dashboard', [AdminCasamentoController::class, 'dashboard'])->name('admin.casamento.dashboard');
     Route::delete('/admin/casamento/presente/{id}/desbloquear', [AdminCasamentoController::class, 'desbloquear'])->name('admin.casamento.presente.desbloquear');
+    Route::post('/admin/casamento/confirmacao', [AdminCasamentoController::class, 'adicionarConfirmacao'])->name('admin.casamento.confirmacao.store');
+    Route::put('/admin/casamento/confirmacao/{id}', [AdminCasamentoController::class, 'editarConfirmacao'])->name('admin.casamento.confirmacao.update');
+    Route::get('/admin/casamento/relatorio-confirmacoes', [AdminCasamentoController::class, 'gerarRelatorioConfirmacoesPdf'])->name('admin.casamento.relatorio.confirmacoes');
+    Route::get('/admin/casamento/relatorio-presentes', [AdminCasamentoController::class, 'gerarRelatorioPresentesPdf'])->name('admin.casamento.relatorio.presentes');
 });
 
 Auth::routes([
