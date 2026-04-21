@@ -101,7 +101,7 @@
     }
 
     .badge-status {
-        background: #22c55e;
+        background: var(--rose-dark);
         color: white;
         padding: 0.3rem 0.8rem;
         border-radius: 20px;
@@ -110,6 +110,52 @@
         letter-spacing: 1px;
         text-transform: uppercase;
         display: inline-block;
+    }
+
+    .gift-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-pay {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1.2rem;
+        border-radius: 25px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-pay-card {
+        background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+        color: var(--white);
+    }
+
+    .btn-pay-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(201,168,124,0.35);
+        color: var(--white);
+    }
+
+    .btn-pay-pix {
+        background: var(--white);
+        color: var(--text-dark);
+        border: 1.5px solid rgba(201,168,124,0.4);
+    }
+
+    .btn-pay-pix:hover {
+        background: var(--cream);
+        border-color: var(--rose);
+        transform: translateY(-2px);
+        color: var(--text-dark);
     }
 
     .empty-state {
@@ -169,6 +215,13 @@
             margin-left: 0;
             text-align: left;
         }
+        .gift-actions {
+            width: 100%;
+        }
+        .btn-pay {
+            flex: 1;
+            justify-content: center;
+        }
     }
 </style>
 @endpush
@@ -196,6 +249,14 @@
                                     <div class="gift-history-method">
                                         <i class="fas {{ $presente['metodo'] == 'pix' ? 'fa-qrcode' : 'fa-credit-card' }} me-1"></i>
                                         Método: {{ strtoupper($presente['metodo']) }}
+                                    </div>
+                                    <div class="gift-actions">
+                                        <a href="{{ route('presente.show', $presente['presente_id']) }}" class="btn-pay btn-pay-card">
+                                            <i class="fas fa-credit-card"></i> Pagar com Cartão
+                                        </a>
+                                        <a href="{{ route('presente.show', $presente['presente_id']) }}" class="btn-pay btn-pay-pix">
+                                            <i class="fas fa-qrcode"></i> Pagar com PIX
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="gift-history-price-box">
