@@ -187,6 +187,8 @@ class AdminCasamentoController extends Controller
      */
     public function dispararConvitesMassa()
     {
+        set_time_limit(0); // Garante que o script não morra por timeout em envios longos
+        
         $presencas = ConfirmacaoPresenca::with('user')
             ->where('status', 'confirmado')
             ->get();
@@ -215,7 +217,7 @@ class AdminCasamentoController extends Controller
                         "Estamos muito felizes em ter você com a gente!";
 
             try {
-                $response = Http::post('http://localhost:3001/send-message', [
+                $response = Http::timeout(30)->post('http://localhost:3001/send-message', [
                     'number' => $telefone,
                     'message' => $mensagem,
                     'pdfUrl' => $linkPdf,
@@ -227,11 +229,57 @@ class AdminCasamentoController extends Controller
                 } else {
                     $erros++;
                 }
+
+                // Pequeno delay para não sobrecarregar o robô e evitar erros de protocolo
+                sleep(2);
             } catch (\Exception $e) {
                 $erros++;
             }
         }
 
         return redirect()->back()->with('success', "Disparos concluídos! Sucessos: {$enviados}, Falhas/Sem fone: {$erros}");
+    }
+
+    /**
+     * Dispara notificação individual via robô sem abrir nova guia
+     */
+    public function dispararIndividualBot($id)
+    {
+        $p = ConfirmacaoPresenca::with('user')->findOrFail($id);
+        
+        $telefone = $p->user ? preg_replace('/[^0-9]/', '', $p->user->phone1 ?? $p->user->phone2) : '';
+        
+        if (!$telefone) {
+            return redirect()->back()->with('error', "Telefone não encontrado para este convidado.");
+        }
+
+        if (substr($telefone, 0, 2) != '55') {
+            $telefone = '55' . $telefone;
+        }
+
+        $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
+        $mensagem = "Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n" .
+                    "*Convidado(a):* {$p->nome_completo}\n" .
+                    "*Sua Senha de Acesso:* {$p->senha_acesso}\n\n" .
+                    "Apresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n" .
+                    "{$linkPdf}\n\n" .
+                    "Estamos muito felizes em ter você com a gente!";
+
+        try {
+            $response = Http::post('http://localhost:3001/send-message', [
+                'number' => $telefone,
+                'message' => $mensagem,
+                'pdfUrl' => $linkPdf,
+                'pdfName' => 'Ingresso_' . \Illuminate\Support\Str::slug($p->nome_completo) . '.pdf'
+            ]);
+
+            if ($response->successful()) {
+                return redirect()->back()->with('success', "Convite enviado com sucesso para {$p->nome_completo}!");
+            }
+            
+            return redirect()->back()->with('error', "Erro ao enviar via robô. Verifique se ele está ativo.");
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', "Erro de conexão com o robô.");
+        }
     }
 }

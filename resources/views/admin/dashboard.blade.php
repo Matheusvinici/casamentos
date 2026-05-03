@@ -178,7 +178,7 @@
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     
-                                    <form action="{{ route('admin.casamento.confirmacao.destroy', $p->id) }}" method="POST" onsubmit="return confirm('Excluir esta confirmação permanentemente?');">
+                                    <form action="{{ route('admin.casamento.confirmacao.destroy', $p->id) }}" method="POST" onsubmit="return confirm('Excluir esta confirmação permanentemente?');" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir Convidado">
@@ -186,15 +186,14 @@
                                         </button>
                                     </form>
 
-                                    @php
-                                        $telefone = $p->user ? preg_replace('/[^0-9]/', '', $p->user->phone1 ?? $p->user->phone2) : '';
-                                        if ($telefone && substr($telefone, 0, 2) != '55') $telefone = '55' . $telefone;
-                                        $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
-                                        $textoZap = urlencode("Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n*Convidado(a):* {$p->nome_completo}\n*Sua Senha de Acesso:* {$p->senha_acesso}\n\nApresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n{$linkPdf}\n\nEstamos muito felizes em ter você com a gente!");
-                                    @endphp
-                                    <a href="https://api.whatsapp.com/send?phone={{ $telefone }}&text={{ $textoZap }}" target="_blank" class="btn btn-sm btn-outline-success" title="Enviar por WhatsApp">
-                                        <i class="fab fa-whatsapp"></i>
-                                    </a>
+                                    @if($p->status == 'confirmado')
+                                    <form action="{{ route('admin.casamento.disparar.individual.bot', $p->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success" title="Enviar Convite Automático via Robô">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </button>
+                                    </form>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -349,9 +348,12 @@
                                         <strong>{{ $p->nome_completo }}</strong><br>
                                         <small class="text-muted">ID: {{ $p->id }} | Senha: {{ $p->senha_acesso }} | Fone: {{ $telefoneBulk ?: 'Não preenchido' }}</small>
                                     </div>
-                                    <a href="{{ $whatsUrl }}" target="_blank" class="btn btn-sm btn-success" onclick="this.classList.replace('btn-success', 'btn-outline-success')">
-                                        <i class="fab fa-whatsapp"></i> Enviar
-                                    </a>
+                                    <form action="{{ route('admin.casamento.disparar.individual.bot', $p->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fab fa-whatsapp"></i> Enviar Agora
+                                        </button>
+                                    </form>
                                 </div>
                             @empty
                                 <div class="list-group-item text-center">Nenhum convidado confirmado para enviar.</div>

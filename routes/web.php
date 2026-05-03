@@ -72,6 +72,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::put('/admin/casamento/confirmacao/{id}', [AdminCasamentoController::class, 'editarConfirmacao'])->name('admin.casamento.confirmacao.update');
     Route::delete('/admin/casamento/confirmacao/{id}', [AdminCasamentoController::class, 'destroyConfirmacao'])->name('admin.casamento.confirmacao.destroy');
     Route::post('/admin/casamento/disparar-massa', [AdminCasamentoController::class, 'dispararConvitesMassa'])->name('admin.casamento.disparar.massa');
+    Route::post('/admin/casamento/disparar-individual/{id}', [AdminCasamentoController::class, 'dispararIndividualBot'])->name('admin.casamento.disparar.individual.bot');
     Route::get('/admin/casamento/relatorio-confirmacoes', [AdminCasamentoController::class, 'gerarRelatorioConfirmacoesPdf'])->name('admin.casamento.relatorio.confirmacoes');
     Route::get('/admin/casamento/relatorio-presentes', [AdminCasamentoController::class, 'gerarRelatorioPresentesPdf'])->name('admin.casamento.relatorio.presentes');
 });

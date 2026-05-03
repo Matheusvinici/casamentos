@@ -43,8 +43,15 @@ app.post('/send-message', async (req, res) => {
         return res.status(400).json({ status: 'error', message: 'Number and message are required' });
     }
 
+    // Verifica se o cliente está conectado
+    if (!client.info || !client.info.wid) {
+        console.log('Tentativa de envio, mas o WhatsApp não está pronto.');
+        return res.status(503).json({ status: 'error', message: 'WhatsApp Client is not ready. Please check the QR Code.' });
+    }
+
     try {
         const formattedNumber = number.includes('@c.us') ? number : `${number}@c.us`;
+        console.log(`Enviando para: ${formattedNumber}...`);
         
         // Enviar mensagem de texto
         await client.sendMessage(formattedNumber, message);
@@ -52,13 +59,13 @@ app.post('/send-message', async (req, res) => {
         // Se houver um PDF para enviar como arquivo
         if (pdfUrl) {
             try {
-                // Usamos localhost:8000 se o Laravel estiver rodando ali
+                console.log(`Baixando PDF de: ${pdfUrl}`);
                 const media = await MessageMedia.fromUrl(pdfUrl);
                 media.filename = pdfName || 'Ingresso_Casamento.pdf';
                 await client.sendMessage(formattedNumber, media);
-                console.log(`PDF sent to ${number}`);
+                console.log(`PDF enviado com sucesso para ${number}`);
             } catch (pdfError) {
-                console.error('Error sending PDF file:', pdfError.message);
+                console.error('Erro ao processar/enviar arquivo PDF:', pdfError.message);
             }
         }
 
