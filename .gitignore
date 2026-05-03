@@ -21,3 +21,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# WhatsApp Bot
+/whatsapp-bot/node_modules
+/whatsapp-bot/.wwebjs_auth
+/whatsapp-bot/qr.png
