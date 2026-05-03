@@ -50,11 +50,22 @@ app.post('/send-message', async (req, res) => {
     }
 
     try {
-        const formattedNumber = number.includes('@c.us') ? number : `${number}@c.us`;
-        console.log(`Enviando para: ${formattedNumber}...`);
+        let numberId = null;
+        const cleanNumber = number.replace(/\D/g, '');
+        
+        // Tenta encontrar o ID correto do WhatsApp (resolve problemas de 9º dígito no Brasil)
+        const contactId = await client.getNumberId(cleanNumber);
+        if (contactId) {
+            numberId = contactId._serialized;
+        } else {
+            // Fallback se não encontrar
+            numberId = cleanNumber.includes('@c.us') ? cleanNumber : `${cleanNumber}@c.us`;
+        }
+
+        console.log(`Enviando para: ${numberId}...`);
         
         // Enviar mensagem de texto
-        await client.sendMessage(formattedNumber, message);
+        await client.sendMessage(numberId, message);
 
         // Se houver um PDF para enviar como arquivo
         if (pdfUrl) {
@@ -62,8 +73,8 @@ app.post('/send-message', async (req, res) => {
                 console.log(`Baixando PDF de: ${pdfUrl}`);
                 const media = await MessageMedia.fromUrl(pdfUrl);
                 media.filename = pdfName || 'Ingresso_Casamento.pdf';
-                await client.sendMessage(formattedNumber, media);
-                console.log(`PDF enviado com sucesso para ${number}`);
+                await client.sendMessage(numberId, media);
+                console.log(`PDF enviado com sucesso para ${numberId}`);
             } catch (pdfError) {
                 console.error('Erro ao processar/enviar arquivo PDF:', pdfError.message);
             }
