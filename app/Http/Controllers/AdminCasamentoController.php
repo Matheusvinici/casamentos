@@ -173,7 +173,9 @@ class AdminCasamentoController extends Controller
     {
         $confirmacao = ConfirmacaoPresenca::with('user')->findOrFail($id);
 
-        if ($confirmacao->senha_acesso !== $senha) {
+        // Validação básica de segurança: se houver senha no banco, ela deve bater. 
+        // Se o link vier com 'no-password', permitimos apenas se o registro no banco não tiver senha.
+        if ($confirmacao->senha_acesso && $confirmacao->senha_acesso !== $senha) {
             abort(403, 'Acesso negado.');
         }
 
@@ -208,11 +210,12 @@ class AdminCasamentoController extends Controller
                 $telefone = '55' . $telefone;
             }
 
-            $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
+            $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? 'no-password']);
+            $textoSenha = $p->senha_acesso ? "\n*Sua Senha de Acesso:* {$p->senha_acesso}\n" : "";
             $mensagem = "Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n" .
-                        "*Convidado(a):* {$p->nome_completo}\n" .
-                        "*Sua Senha de Acesso:* {$p->senha_acesso}\n\n" .
-                        "Apresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n" .
+                        "*Convidado(a):* {$p->nome_completo}" .
+                        $textoSenha . "\n" .
+                        "Apresente este convite ou baixe o PDF no link abaixo para liberar seu acesso:\n" .
                         "{$linkPdf}\n\n" .
                         "Estamos muito felizes em ter você com a gente!";
 
@@ -257,11 +260,12 @@ class AdminCasamentoController extends Controller
             $telefone = '55' . $telefone;
         }
 
-        $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
+        $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? 'no-password']);
+        $textoSenha = $p->senha_acesso ? "\n*Sua Senha de Acesso:* {$p->senha_acesso}\n" : "";
         $mensagem = "Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n" .
-                    "*Convidado(a):* {$p->nome_completo}\n" .
-                    "*Sua Senha de Acesso:* {$p->senha_acesso}\n\n" .
-                    "Apresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n" .
+                    "*Convidado(a):* {$p->nome_completo}" .
+                    $textoSenha . "\n" .
+                    "Apresente este convite ou baixe o PDF no link abaixo para liberar seu acesso:\n" .
                     "{$linkPdf}\n\n" .
                     "Estamos muito felizes em ter você com a gente!";
 
