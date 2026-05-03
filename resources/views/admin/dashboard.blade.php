@@ -137,6 +137,9 @@
             <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
                 <h3 class="admin-table-title border-bottom-0 pb-0 mb-0"><i class="fas fa-list-ul me-2"></i> Lista de Confirmações (RSVP)</h3>
                 <div>
+                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#bulkWhatsappModal">
+                        <i class="fab fa-whatsapp"></i> Enviar Convites (Whats)
+                    </button>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addConfirmacaoModal">
                         <i class="fas fa-plus"></i> Adicionar
                     </button>
@@ -170,9 +173,29 @@
                                 @endif
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editConfirmacaoModal{{ $p->id }}" title="Editar Convidado">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                <div class="d-flex" style="gap: 5px;">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editConfirmacaoModal{{ $p->id }}" title="Editar Convidado">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    
+                                    <form action="{{ route('admin.casamento.confirmacao.destroy', $p->id) }}" method="POST" onsubmit="return confirm('Excluir esta confirmação permanentemente?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir Convidado">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+
+                                    @php
+                                        $telefone = $p->user ? preg_replace('/[^0-9]/', '', $p->user->phone1 ?? $p->user->phone2) : '';
+                                        if ($telefone && substr($telefone, 0, 2) != '55') $telefone = '55' . $telefone;
+                                        $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
+                                        $textoZap = urlencode("Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n*Convidado(a):* {$p->nome_completo}\n*Sua Senha de Acesso:* {$p->senha_acesso}\n\nApresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n{$linkPdf}\n\nEstamos muito felizes em ter você com a gente!");
+                                    @endphp
+                                    <a href="https://api.whatsapp.com/send?phone={{ $telefone }}&text={{ $textoZap }}" target="_blank" class="btn btn-sm btn-outline-success" title="Enviar por WhatsApp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
 
@@ -297,6 +320,47 @@
                             <button type="submit" class="btn btn-success">Adicionar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Bulk WhatsApp -->
+        <div class="modal fade" id="bulkWhatsappModal" tabindex="-1" aria-labelledby="bulkWhatsappModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bulkWhatsappModalLabel">
+                            <i class="fab fa-whatsapp text-success"></i> Disparos Manuais de WhatsApp
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted"><small>Clique nos links abaixo para abrir o WhatsApp Web/App com a mensagem pronta para cada convidado.</small></p>
+                        <div class="list-group">
+                            @forelse($presencas->where('status', 'confirmado') as $p)
+                                @php
+                                    $telefoneBulk = $p->user ? preg_replace('/[^0-9]/', '', $p->user->phone1 ?? $p->user->phone2) : '';
+                                    if ($telefoneBulk && substr($telefoneBulk, 0, 2) != '55') $telefoneBulk = '55' . $telefoneBulk;
+                                    $linkPdfBulk = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
+                                    $textoZapBulk = urlencode("Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n*Convidado(a):* {$p->nome_completo}\n*Sua Senha de Acesso:* {$p->senha_acesso}\n\nApresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n{$linkPdfBulk}\n\nEstamos muito felizes em ter você com a gente!");
+                                    $whatsUrl = "https://api.whatsapp.com/send?phone={$telefoneBulk}&text={$textoZapBulk}";
+                                @endphp
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>{{ $p->nome_completo }}</strong><br>
+                                        <small class="text-muted">ID: {{ $p->id }} | Senha: {{ $p->senha_acesso }} | Fone: {{ $telefoneBulk ?: 'Não preenchido' }}</small>
+                                    </div>
+                                    <a href="{{ $whatsUrl }}" target="_blank" class="btn btn-sm btn-success" onclick="this.classList.replace('btn-success', 'btn-outline-success')">
+                                        <i class="fab fa-whatsapp"></i> Enviar
+                                    </a>
+                                </div>
+                            @empty
+                                <div class="list-group-item text-center">Nenhum convidado confirmado para enviar.</div>
+                            @endforelse
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
                 </div>
             </div>
         </div>

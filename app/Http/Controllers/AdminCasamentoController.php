@@ -154,4 +154,31 @@ class AdminCasamentoController extends Controller
         
         return $pdf->stream('relatorio_presentes.pdf');
     }
+    /**
+     * Exclui uma confirmação de presença permanentemente
+     */
+    public function destroyConfirmacao($id)
+    {
+        $confirmacao = ConfirmacaoPresenca::findOrFail($id);
+        $confirmacao->delete();
+
+        return redirect()->back()->with('success', 'Confirmação excluída com sucesso!');
+    }
+
+    /**
+     * Gera o PDF individual de um convite
+     */
+    public function gerarConviteIndividualPdf($id, $senha)
+    {
+        $confirmacao = ConfirmacaoPresenca::with('user')->findOrFail($id);
+
+        if ($confirmacao->senha_acesso !== $senha) {
+            abort(403, 'Acesso negado.');
+        }
+
+        $pdf = Pdf::loadView('admin.relatorios.convite-individual', compact('confirmacao'))
+            ->setPaper('a5', 'portrait');
+            
+        return $pdf->stream('Ingresso_Casamento_' . \Illuminate\Support\Str::slug($confirmacao->nome_completo) . '.pdf');
+    }
 }

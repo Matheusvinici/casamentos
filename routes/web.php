@@ -70,9 +70,12 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::delete('/admin/casamento/presente/{id}/desbloquear', [AdminCasamentoController::class, 'desbloquear'])->name('admin.casamento.presente.desbloquear');
     Route::post('/admin/casamento/confirmacao', [AdminCasamentoController::class, 'adicionarConfirmacao'])->name('admin.casamento.confirmacao.store');
     Route::put('/admin/casamento/confirmacao/{id}', [AdminCasamentoController::class, 'editarConfirmacao'])->name('admin.casamento.confirmacao.update');
+    Route::delete('/admin/casamento/confirmacao/{id}', [AdminCasamentoController::class, 'destroyConfirmacao'])->name('admin.casamento.confirmacao.destroy');
     Route::get('/admin/casamento/relatorio-confirmacoes', [AdminCasamentoController::class, 'gerarRelatorioConfirmacoesPdf'])->name('admin.casamento.relatorio.confirmacoes');
     Route::get('/admin/casamento/relatorio-presentes', [AdminCasamentoController::class, 'gerarRelatorioPresentesPdf'])->name('admin.casamento.relatorio.presentes');
 });
+
+Route::get('/convite/pdf/{id}/{senha}', [AdminCasamentoController::class, 'gerarConviteIndividualPdf'])->name('convite.individual.pdf');
 
 Auth::routes([
     'verify' => false,
