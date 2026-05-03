@@ -8,6 +8,7 @@ use App\Models\PresenteComprado;
 use App\Models\User;
 use App\Http\Controllers\PresenteController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminCasamentoController extends Controller
@@ -180,5 +181,57 @@ class AdminCasamentoController extends Controller
             ->setPaper('a5', 'portrait');
             
         return $pdf->stream('Ingresso_Casamento_' . \Illuminate\Support\Str::slug($confirmacao->nome_completo) . '.pdf');
+    }
+    /**
+     * Dispara as notificações de convite para todos os confirmados via Node.js Bot
+     */
+    public function dispararConvitesMassa()
+    {
+        $presencas = ConfirmacaoPresenca::with('user')
+            ->where('status', 'confirmado')
+            ->get();
+
+        $enviados = 0;
+        $erros = 0;
+
+        foreach ($presencas as $p) {
+            $telefone = $p->user ? preg_replace('/[^0-9]/', '', $p->user->phone1 ?? $p->user->phone2) : '';
+            
+            if (!$telefone) {
+                $erros++;
+                continue;
+            }
+
+            if (substr($telefone, 0, 2) != '55') {
+                $telefone = '55' . $telefone;
+            }
+
+            $linkPdf = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? '0000']);
+            $mensagem = "Olá! Aqui está o ingresso individual e intransferível para o nosso casamento.\n\n" .
+                        "*Convidado(a):* {$p->nome_completo}\n" .
+                        "*Sua Senha de Acesso:* {$p->senha_acesso}\n\n" .
+                        "Apresente a senha acima ou baixe e mostre o PDF na entrada do evento para liberar seu acesso:\n" .
+                        "{$linkPdf}\n\n" .
+                        "Estamos muito felizes em ter você com a gente!";
+
+            try {
+                $response = Http::post('http://localhost:3001/send-message', [
+                    'number' => $telefone,
+                    'message' => $mensagem,
+                    'pdfUrl' => $linkPdf,
+                    'pdfName' => 'Ingresso_' . \Illuminate\Support\Str::slug($p->nome_completo) . '.pdf'
+                ]);
+
+                if ($response->successful()) {
+                    $enviados++;
+                } else {
+                    $erros++;
+                }
+            } catch (\Exception $e) {
+                $erros++;
+            }
+        }
+
+        return redirect()->back()->with('success', "Disparos concluídos! Sucessos: {$enviados}, Falhas/Sem fone: {$erros}");
     }
 }

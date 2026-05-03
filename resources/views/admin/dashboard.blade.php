@@ -358,7 +358,13 @@
                             @endforelse
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer d-flex justify-content-between">
+                        <form action="{{ route('admin.casamento.disparar.massa') }}" method="POST" onsubmit="return confirm('Deseja iniciar o disparo automático para todos os confirmados? Verifique se o Robô Node.js está rodando e autenticado.');">
+                            @csrf
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-robot"></i> Disparar para Todos (Automático)
+                            </button>
+                        </form>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
