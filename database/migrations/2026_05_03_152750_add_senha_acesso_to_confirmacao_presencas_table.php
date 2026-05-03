@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('confirmacao_presencas', function (Blueprint $table) {
-            //
+            $table->string('senha_acesso', 10)->nullable()->after('status');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('confirmacao_presencas', function (Blueprint $table) {
-            //
+            $table->dropColumn('senha_acesso');
         });
     }
 };
