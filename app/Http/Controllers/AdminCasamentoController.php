@@ -270,7 +270,7 @@ class AdminCasamentoController extends Controller
                     "Estamos muito felizes em ter você com a gente!";
 
         try {
-            $response = Http::post('http://localhost:3001/send-message', [
+            $response = Http::timeout(10)->post('http://localhost:3001/send-message', [
                 'number' => $telefone,
                 'message' => $mensagem,
                 'pdfUrl' => $linkPdf,
@@ -278,12 +278,16 @@ class AdminCasamentoController extends Controller
             ]);
 
             if ($response->successful()) {
-                return redirect()->back()->with('success', "Convite enviado com sucesso para {$p->nome_completo}!");
+                return redirect()->back()->with('success', "Convite enviado com sucesso!");
             }
             
-            return redirect()->back()->with('error', "Erro ao enviar via robô. Verifique se ele está ativo.");
+            $errorMsg = $response->json()['message'] ?? 'Erro desconhecido no robô.';
+            return redirect()->back()->with('error', "O robô respondeu com erro: " . $errorMsg);
+            
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return redirect()->back()->with('error', "Não foi possível conectar ao robô (Porta 3001). Verifique se o Node.js está rodando.");
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', "Erro de conexão com o robô.");
+            return redirect()->back()->with('error', "Erro ao processar envio: " . $e->getMessage());
         }
     }
 }
