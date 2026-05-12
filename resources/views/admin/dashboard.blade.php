@@ -187,12 +187,29 @@
                                     </form>
 
                                     @if($p->status == 'confirmado')
-                                    <form action="{{ route('admin.casamento.disparar.individual.bot', $p->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-success" title="Enviar Convite Automático via Robô">
+                                    <div class="d-flex" style="gap: 5px;">
+                                        <form action="{{ route('admin.casamento.disparar.individual.bot', $p->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-success" title="Enviar Convite Automático via Robô">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </button>
+                                        </form>
+
+                                        <a href="{{ route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? 'no-password']) }}" class="btn btn-sm btn-outline-danger" target="_blank" title="Ver PDF Individual">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a>
+
+                                        @php
+                                            $foneManual = $p->user ? preg_replace('/[^0-9]/', '', $p->user->phone1 ?? $p->user->phone2) : '';
+                                            if ($foneManual && substr($foneManual, 0, 2) != '55') $foneManual = '55' . $foneManual;
+                                            $linkIndividual = route('convite.individual.pdf', ['id' => $p->id, 'senha' => $p->senha_acesso ?? 'no-password']);
+                                            $msgIndividual = urlencode("Olá! Aqui está o seu ingresso individual para o casamento de Mary & Matheus.\n\nSua Senha: " . ($p->senha_acesso ?? 'Gerando...') . "\n\nLink do PDF: " . $linkIndividual);
+                                            $zapManualUrl = "https://api.whatsapp.com/send?phone={$foneManual}&text={$msgIndividual}";
+                                        @endphp
+                                        <a href="{{ $zapManualUrl }}" target="_blank" class="btn btn-sm btn-outline-success" title="Enviar Link Manualmente via WhatsApp">
                                             <i class="fab fa-whatsapp"></i>
-                                        </button>
-                                    </form>
+                                        </a>
+                                    </div>
                                     @endif
                                 </div>
                             </td>
@@ -270,13 +287,62 @@
                             <td><span style="text-transform: uppercase; font-size: 0.8rem; font-weight: bold; color: #888;"><i class="fas {{ $pr['metodo'] == 'pix' ? 'fa-qrcode' : 'fa-credit-card' }}"></i> {{ $pr['metodo'] }}</span></td>
                             <td>{{ \Carbon\Carbon::parse($pr['data_compra'])->format('d/m/Y H:i') }}</td>
                             <td>
-                                <form action="{{ route('admin.casamento.presente.desbloquear', $pr['id']) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desbloquear este presente?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Desbloquear Presente">
-                                        <i class="fas fa-unlock"></i> Desbloquear
+                                <div class="d-flex" style="gap: 5px;">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPresenteModal{{ $pr['id'] }}" title="Editar Nome do Presente">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                </form>
+
+                                    <a href="{{ route('admin.casamento.agradecimento.presente', $pr['id']) }}" class="btn btn-sm btn-outline-danger" target="_blank" title="Gerar PDF Agradecimento">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
+
+                                    @php
+                                        $msgGift = urlencode("Olá {$pr['usuario']}! Passando para agradecer imensamente pelo seu presente: *{$pr['nome_presente']}*. Seu carinho nos deixa muito felizes! ❤️");
+                                        // Tenta pegar o telefone do usuário se existir
+                                        $userObj = \App\Models\User::find($presencas->where('user_id', '!=', null)->where('nome_completo', $pr['usuario'])->first()->user_id ?? 0);
+                                        $foneGift = $userObj ? preg_replace('/[^0-9]/', '', $userObj->phone1 ?? $userObj->phone2) : '';
+                                        if ($foneGift && substr($foneGift, 0, 2) != '55') $foneGift = '55' . $foneGift;
+                                        $zapGiftUrl = "https://api.whatsapp.com/send?phone={$foneGift}&text={$msgGift}";
+                                    @endphp
+                                    <a href="{{ $zapGiftUrl }}" target="_blank" class="btn btn-sm btn-outline-success" title="Enviar Agradecimento via WhatsApp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+
+                                    <form action="{{ route('admin.casamento.presente.desbloquear', $pr['id']) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desbloquear este presente?');" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" title="Desbloquear Presente">
+                                            <i class="fas fa-unlock"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Modal Editar Presente -->
+                                <div class="modal fade" id="editPresenteModal{{ $pr['id'] }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="{{ route('admin.casamento.presente.update', $pr['id']) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Editar Nome do Presente</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Nome Manual (Override)</label>
+                                                        <input type="text" class="form-control" name="nome_manual" value="{{ $pr['nome_presente'] }}" required>
+                                                        <small class="text-muted">Isso alterará como o presente aparece no relatório e no agradecimento.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @empty

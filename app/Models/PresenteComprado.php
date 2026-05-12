@@ -10,6 +10,7 @@ class PresenteComprado extends Model
 
     protected $fillable = [
         'presente_id',
+        'nome_manual',
         'user_id',
         'metodo_pagamento',
         'comprovante_path',

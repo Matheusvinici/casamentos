@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <title>Relatório de Presentes</title>
     <style>
-        body { font-family: sans-serif; font-size: 14px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        h1, h3 { text-align: center; }
-        .summary { margin-top: 20px; border: 1px solid #ddd; padding: 10px; width: 50%; }
+        @page { margin: 0.8cm; }
+        body { font-family: sans-serif; font-size: 9px; margin: 0; padding: 0; width: 100%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
+        th, td { border: 1px solid #eee; padding: 4px; text-align: left; overflow: hidden; word-wrap: break-word; }
+        th { background-color: #f8f8f8; font-weight: bold; }
+        h1 { text-align: center; font-size: 14px; margin-bottom: 5px; }
+        .summary { margin-top: 10px; border: 1px solid #eee; padding: 8px; background: #fafafa; }
+        .summary p { margin: 2px 0; }
+        
+        /* Column Widths */
+        .col-nome { width: 35%; }
+        .col-status { width: 30%; }
+        .col-valor { width: 12%; }
+        .col-metodo { width: 10%; }
+        .col-data { width: 13%; }
     </style>
 </head>
 <body>
@@ -18,28 +27,28 @@
 
     <div class="summary">
         <h4>Resumo:</h4>
-        <p>Total de Presentes: {{ count($presentesRecebidos) }}</p>
+        <p>Total de Presentes Ganhos: {{ count(array_filter($presentesLista, fn($p) => strpos($p['status'], 'Ganho') !== false)) }}</p>
         <p>Total Arrecadado: R$ {{ number_format($totalArrecadado, 2, ',', '.') }}</p>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Presente / Experiência</th>
-                <th>Apoiador</th>
-                <th>Valor</th>
-                <th>Método</th>
-                <th>Data</th>
+                <th class="col-nome">Presente / Experiência</th>
+                <th class="col-status">Status / Apoiador</th>
+                <th class="col-valor">Valor</th>
+                <th class="col-metodo">Método</th>
+                <th class="col-data">Data</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($presentesRecebidos as $pr)
+            @foreach($presentesLista as $p)
                 <tr>
-                    <td>{{ $pr['nome_presente'] }}</td>
-                    <td>{{ $pr['usuario'] }}</td>
-                    <td>R$ {{ number_format($pr['preco'], 2, ',', '.') }}</td>
-                    <td style="text-transform: uppercase;">{{ $pr['metodo'] }}</td>
-                    <td>{{ \Carbon\Carbon::parse($pr['data_compra'])->format('d/m/Y H:i') }}</td>
+                    <td>{{ $p['nome'] }}</td>
+                    <td>{{ $p['status'] }}</td>
+                    <td>R$ {{ number_format($p['preco'], 2, ',', '.') }}</td>
+                    <td style="text-transform: uppercase;">{{ $p['metodo'] ?? '-' }}</td>
+                    <td>{{ $p['data'] ? \Carbon\Carbon::parse($p['data'])->format('d/m/Y H:i') : '-' }}</td>
                 </tr>
             @endforeach
         </tbody>

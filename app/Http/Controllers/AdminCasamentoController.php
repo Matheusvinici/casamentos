@@ -39,10 +39,11 @@ class AdminCasamentoController extends Controller
                     'id' => $compra->id,
                     'usuario' => $compra->user ? $compra->user->name : 'Usuário ' . $compra->user_id,
                     'presente_id' => $detalhe['id'],
-                    'nome_presente' => $detalhe['nome'],
+                    'nome_presente' => $compra->nome_manual ?? $detalhe['nome'],
                     'preco' => $detalhe['preco'],
                     'data_compra' => $compra->created_at,
-                    'metodo' => $compra->metodo_pagamento
+                    'metodo' => $compra->metodo_pagamento,
+                    'nome_manual' => $compra->nome_manual
                 ];
                 $totalArrecadado += $detalhe['preco'];
             }
@@ -129,31 +130,31 @@ class AdminCasamentoController extends Controller
      */
     public function gerarRelatorioPresentesPdf()
     {
-        $compras = PresenteComprado::with('user')->orderBy('created_at', 'desc')->get();
+        $compras = PresenteComprado::with('user')->get()->keyBy('presente_id');
         $presentesDetalhes = PresenteController::getPresentes();
         
-        $presentesRecebidos = [];
+        $presentesLista = [];
         $totalArrecadado = 0;
         
-        foreach ($compras as $compra) {
-            if (isset($presentesDetalhes[$compra->presente_id])) {
-                $detalhe = $presentesDetalhes[$compra->presente_id];
-                $presentesRecebidos[] = [
-                    'id' => $compra->id,
-                    'usuario' => $compra->user ? $compra->user->name : 'N/A',
-                    'presente_id' => $detalhe['id'],
-                    'nome_presente' => $detalhe['nome'],
-                    'preco' => $detalhe['preco'],
-                    'data_compra' => $compra->created_at,
-                    'metodo' => $compra->metodo_pagamento
-                ];
+        foreach ($presentesDetalhes as $id => $detalhe) {
+            $compra = $compras->get($id);
+            $presentesLista[] = [
+                'id' => $id,
+                'nome' => $compra && $compra->nome_manual ? $compra->nome_manual : $detalhe['nome'],
+                'preco' => $detalhe['preco'],
+                'status' => $compra ? 'Ganho por ' . ($compra->user ? $compra->user->name : 'Alguém') : 'Disponível',
+                'data' => $compra ? $compra->created_at : null,
+                'metodo' => $compra ? $compra->metodo_pagamento : null
+            ];
+            
+            if ($compra) {
                 $totalArrecadado += $detalhe['preco'];
             }
         }
 
-        $pdf = Pdf::loadView('admin.relatorios.presentes', compact('presentesRecebidos', 'totalArrecadado'));
+        $pdf = Pdf::loadView('admin.relatorios.presentes', compact('presentesLista', 'totalArrecadado'));
         
-        return $pdf->stream('relatorio_presentes.pdf');
+        return $pdf->stream('relatorio_presentes_atualizado.pdf');
     }
     /**
      * Exclui uma confirmação de presença permanentemente
@@ -173,9 +174,12 @@ class AdminCasamentoController extends Controller
     {
         $confirmacao = ConfirmacaoPresenca::with('user')->findOrFail($id);
 
-        // Validação básica de segurança: se houver senha no banco, ela deve bater. 
-        // Se o link vier com 'no-password', permitimos apenas se o registro no banco não tiver senha.
-        if ($confirmacao->senha_acesso && $confirmacao->senha_acesso !== $senha) {
+        if (!$confirmacao->senha_acesso) {
+            $confirmacao->senha_acesso = rand(1000, 9999);
+            $confirmacao->save();
+        }
+
+        if ($senha !== 'no-password' && $confirmacao->senha_acesso != $senha) {
             abort(403, 'Acesso negado.');
         }
 
@@ -183,6 +187,41 @@ class AdminCasamentoController extends Controller
             ->setPaper('a5', 'portrait');
             
         return $pdf->stream('Ingresso_Casamento_' . \Illuminate\Support\Str::slug($confirmacao->nome_completo) . '.pdf');
+    }
+
+    /**
+     * Gera PDF de agradecimento individual por presente
+     */
+    public function gerarAgradecimentoPresentePdf($id)
+    {
+        $compra = PresenteComprado::with('user')->findOrFail($id);
+        $presentesDetalhes = PresenteController::getPresentes();
+        $detalhe = $presentesDetalhes[$compra->presente_id] ?? null;
+
+        $nomePresente = $compra->nome_manual ?? ($detalhe ? $detalhe['nome'] : 'Presente');
+        $nomeConvidado = $compra->user ? $compra->user->name : 'Convidado';
+
+        $pdf = Pdf::loadView('admin.relatorios.agradecimento-presente', compact('compra', 'nomePresente', 'nomeConvidado'))
+            ->setPaper('a5', 'landscape');
+
+        return $pdf->stream('Agradecimento_' . \Illuminate\Support\Str::slug($nomeConvidado) . '.pdf');
+    }
+
+    /**
+     * Edita o nome manual de um presente comprado
+     */
+    public function editarPresente(Request $request, $id)
+    {
+        $request->validate([
+            'nome_manual' => 'required|string|max:255',
+        ]);
+
+        $compra = PresenteComprado::findOrFail($id);
+        $compra->update([
+            'nome_manual' => $request->nome_manual
+        ]);
+
+        return redirect()->back()->with('success', 'Nome do presente atualizado com sucesso!');
     }
     /**
      * Dispara as notificações de convite para todos os confirmados via Node.js Bot

@@ -107,3 +107,27 @@ WhatsApp Authenticated!
 WhatsApp Client is READY!
 WhatsApp Authenticated!
 WhatsApp Client is READY!
+Enviando para: 127531101483189@lid...
+Baixando PDF de: http://127.0.0.1:8000/convite/pdf/6/no-password
+Erro ao processar/enviar arquivo PDF: Unable to determine MIME type using URL. Set unsafeMime to true to download it anyway.
+Enviando para: 127531101483189@lid...
+Baixando PDF de: http://127.0.0.1:8000/convite/pdf/1/no-password
+Erro ao processar/enviar arquivo PDF: Unable to determine MIME type using URL. Set unsafeMime to true to download it anyway.
+Enviando para: 55123456789@c.us...
+Error sending message: Error: No LID for user
+s (https://static.whatsapp.net/rsrc.php/v4/yP/r/MTIZmCagunk.js:79:180)
+    at #evaluate (/home/matheus/Documentos/casamento/whatsapp-bot/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/ExecutionContext.js:391:56)
+    at async ExecutionContext.evaluate (/home/matheus/Documentos/casamento/whatsapp-bot/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/ExecutionContext.js:277:16)
+    at async IsolatedWorld.evaluate (/home/matheus/Documentos/casamento/whatsapp-bot/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/IsolatedWorld.js:100:16)
+    at async CdpFrame.evaluate (/home/matheus/Documentos/casamento/whatsapp-bot/node_modules/puppeteer-core/lib/cjs/puppeteer/api/Frame.js:362:20)
+    at async CdpPage.evaluate (/home/matheus/Documentos/casamento/whatsapp-bot/node_modules/puppeteer-core/lib/cjs/puppeteer/api/Page.js:830:20)
+    at async Client.sendMessage (/home/matheus/Documentos/casamento/whatsapp-bot/node_modules/whatsapp-web.js/src/Client.js:1533:25)
+    at async /home/matheus/Documentos/casamento/whatsapp-bot/index.js:68:9
+    at i (https://static.whatsapp.net/rsrc.php/v4/yP/r/MTIZmCagunk.js:108:348)
+    at l (https://static.whatsapp.net/rsrc.php/v4/yP/r/MTIZmCagunk.js:108:124)
+    at <anonymous> (https://static.whatsapp.net/rsrc.php/v4iw-14/y-/l/pt_BR-j/YZYGBv5-puF.js:702:1844)
+    at h (https://static.whatsapp.net/rsrc.php/v4i9mV4/yc/l/pt_BR-j/7jjpyzqxcIB4yFHcqyMLGfAzDQgCZhlO5Wl_HC4ZDPfu.js:947:1489)
+    at s (https://static.whatsapp.net/rsrc.php/v4/yP/r/MTIZmCagunk.js:78:179)
+Enviando para: 127531101483189@lid...
+Baixando PDF de: http://127.0.0.1:8000/convite/pdf/6/no-password
+Erro ao processar/enviar arquivo PDF: Unable to determine MIME type using URL. Set unsafeMime to true to download it anyway.

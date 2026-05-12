@@ -75,6 +75,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/admin/casamento/disparar-individual/{id}', [AdminCasamentoController::class, 'dispararIndividualBot'])->name('admin.casamento.disparar.individual.bot');
     Route::get('/admin/casamento/relatorio-confirmacoes', [AdminCasamentoController::class, 'gerarRelatorioConfirmacoesPdf'])->name('admin.casamento.relatorio.confirmacoes');
     Route::get('/admin/casamento/relatorio-presentes', [AdminCasamentoController::class, 'gerarRelatorioPresentesPdf'])->name('admin.casamento.relatorio.presentes');
+    Route::get('/admin/casamento/agradecimento-presente/{id}', [AdminCasamentoController::class, 'gerarAgradecimentoPresentePdf'])->name('admin.casamento.agradecimento.presente');
+    Route::put('/admin/casamento/presente/{id}/update', [AdminCasamentoController::class, 'editarPresente'])->name('admin.casamento.presente.update');
 });
 
 Route::get('/convite/pdf/{id}/{senha}', [AdminCasamentoController::class, 'gerarConviteIndividualPdf'])->name('convite.individual.pdf');
