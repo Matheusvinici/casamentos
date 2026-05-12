@@ -37,13 +37,14 @@ class AdminCasamentoController extends Controller
                 $detalhe = $presentesDetalhes[$compra->presente_id];
                 $presentesRecebidos[] = [
                     'id' => $compra->id,
-                    'usuario' => $compra->user ? $compra->user->name : 'Usuário ' . $compra->user_id,
+                    'usuario' => $compra->convidado_manual ?? ($compra->user ? $compra->user->name : 'Usuário ' . $compra->user_id),
                     'presente_id' => $detalhe['id'],
                     'nome_presente' => $compra->nome_manual ?? $detalhe['nome'],
                     'preco' => $detalhe['preco'],
                     'data_compra' => $compra->created_at,
                     'metodo' => $compra->metodo_pagamento,
-                    'nome_manual' => $compra->nome_manual
+                    'nome_manual' => $compra->nome_manual,
+                    'convidado_manual' => $compra->convidado_manual
                 ];
                 $totalArrecadado += $detalhe['preco'];
             }
@@ -142,7 +143,7 @@ class AdminCasamentoController extends Controller
                 'id' => $id,
                 'nome' => $compra && $compra->nome_manual ? $compra->nome_manual : $detalhe['nome'],
                 'preco' => $detalhe['preco'],
-                'status' => $compra ? 'Ganho por ' . ($compra->user ? $compra->user->name : 'Alguém') : 'Disponível',
+                'status' => $compra ? 'Ganho por ' . ($compra->convidado_manual ?? ($compra->user ? $compra->user->name : 'Alguém')) : 'Disponível',
                 'data' => $compra ? $compra->created_at : null,
                 'metodo' => $compra ? $compra->metodo_pagamento : null
             ];
@@ -199,7 +200,7 @@ class AdminCasamentoController extends Controller
         $detalhe = $presentesDetalhes[$compra->presente_id] ?? null;
 
         $nomePresente = $compra->nome_manual ?? ($detalhe ? $detalhe['nome'] : 'Presente');
-        $nomeConvidado = $compra->user ? $compra->user->name : 'Convidado';
+        $nomeConvidado = $compra->convidado_manual ?? ($compra->user ? $compra->user->name : 'Convidado');
 
         $pdf = Pdf::loadView('admin.relatorios.agradecimento-presente', compact('compra', 'nomePresente', 'nomeConvidado'))
             ->setPaper('a5', 'landscape');
@@ -213,15 +214,17 @@ class AdminCasamentoController extends Controller
     public function editarPresente(Request $request, $id)
     {
         $request->validate([
-            'nome_manual' => 'required|string|max:255',
+            'nome_manual' => 'nullable|string|max:255',
+            'convidado_manual' => 'nullable|string|max:255',
         ]);
 
         $compra = PresenteComprado::findOrFail($id);
         $compra->update([
-            'nome_manual' => $request->nome_manual
+            'nome_manual' => $request->nome_manual,
+            'convidado_manual' => $request->convidado_manual
         ]);
 
-        return redirect()->back()->with('success', 'Nome do presente atualizado com sucesso!');
+        return redirect()->back()->with('success', 'Informações do presente atualizadas com sucesso!');
     }
     /**
      * Dispara as notificações de convite para todos os confirmados via Node.js Bot

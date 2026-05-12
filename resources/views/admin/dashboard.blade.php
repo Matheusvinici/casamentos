@@ -330,9 +330,14 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Nome Manual (Override)</label>
-                                                        <input type="text" class="form-control" name="nome_manual" value="{{ $pr['nome_presente'] }}" required>
-                                                        <small class="text-muted">Isso alterará como o presente aparece no relatório e no agradecimento.</small>
+                                                        <label class="form-label">Nome do Presente (Override)</label>
+                                                        <input type="text" class="form-control" name="nome_manual" value="{{ $pr['nome_manual'] ?? '' }}" placeholder="{{ $pr['nome_presente'] }}">
+                                                        <small class="text-muted">Deixe em branco para usar o nome padrão.</small>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Convidado que deu (Override)</label>
+                                                        <input type="text" class="form-control" name="convidado_manual" value="{{ $pr['convidado_manual'] ?? '' }}" placeholder="{{ $pr['usuario'] }}">
+                                                        <small class="text-muted">Utilize para alterar manualmente quem deu o presente.</small>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
