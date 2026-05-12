@@ -17,6 +17,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
+            text-align: center;
         }
         .border-inner {
             border: 2px solid #caaa7e;
@@ -25,7 +26,8 @@
             text-align: center;
             background-color: #ffffff;
             border-radius: 10px;
-            width: 100%;
+            width: 95%;
+            margin: 0 auto;
         }
         .header {
             margin-top: 10px;
